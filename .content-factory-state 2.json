@@ -1,0 +1,27 @@
+{
+  "phase": "writing",
+  "total": 3,
+  "completed": 0,
+  "failed": 2,
+  "current_article": "lam-ho-chieu-gap-tai-hai-phong",
+  "started_at": "00:51:39",
+  "errors": [
+    {
+      "slug": "lam-ho-chieu-gap-tai-da-nang",
+      "error": "404 This model models/gemini-2.0-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+      "time": "00:51:48"
+    },
+    {
+      "slug": "lam-ho-chieu-gap-tai-can-tho",
+      "error": "404 This model models/gemini-2.0-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+      "time": "00:52:01"
+    }
+  ],
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "cost_usd": 0.0
+  },
+  "paused": false,
+  "pause_reason": ""
+}

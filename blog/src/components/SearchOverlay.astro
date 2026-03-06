@@ -1,0 +1,173 @@
+---
+/**
+ * SearchOverlay — Full-screen search with client-side filtering.
+ * Opens via search button or Ctrl+K / Cmd+K keyboard shortcut.
+ */
+---
+
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Tìm kiếm" aria-hidden="true">
+	<div class="search-backdrop" id="searchBackdrop"></div>
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-wrap">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+				<input type="search" id="searchInput" placeholder="Tìm bài viết... (ví dụ: hộ chiếu gấp)" autocomplete="off" autofocus />
+				<kbd>ESC</kbd>
+			</div>
+		</div>
+		<div class="search-results" id="searchResults">
+			<div class="search-empty">Nhập từ khoá để tìm kiếm trong 100 bài viết</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	let searchData: any[] = [];
+	let loaded = false;
+
+	async function loadIndex() {
+		if (loaded) return;
+		try {
+			const base = import.meta.env.BASE_URL;
+			const res = await fetch(`${base}/search-index.json`);
+			searchData = await res.json();
+			loaded = true;
+		} catch { searchData = []; }
+	}
+
+	function openSearch() {
+		const overlay = document.getElementById('searchOverlay');
+		overlay?.setAttribute('aria-hidden', 'false');
+		overlay?.classList.add('open');
+		(document.getElementById('searchInput') as HTMLInputElement)?.focus();
+		loadIndex();
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeSearch() {
+		const overlay = document.getElementById('searchOverlay');
+		overlay?.setAttribute('aria-hidden', 'true');
+		overlay?.classList.remove('open');
+		document.body.style.overflow = '';
+	}
+
+	function doSearch(query: string) {
+		const results = document.getElementById('searchResults');
+		if (!results) return;
+		if (!query.trim()) {
+			results.innerHTML = '<div class="search-empty">Nhập từ khoá để tìm kiếm trong 100 bài viết</div>';
+			return;
+		}
+		const q = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+		const matches = searchData.filter((p: any) => {
+			const haystack = `${p.title} ${p.description} ${(p.keywords||[]).join(' ')} ${p.cluster}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+			return q.split(/\s+/).every((w: string) => haystack.includes(w));
+		}).slice(0, 12);
+
+		if (!matches.length) {
+			results.innerHTML = `<div class="search-empty">Không tìm thấy kết quả cho "<strong>${query}</strong>"</div>`;
+			return;
+		}
+		const base = import.meta.env.BASE_URL || '';
+		results.innerHTML = matches.map((p: any) =>
+			`<a href="${base}/${p.slug}/" class="search-result">
+				<span class="sr-cluster">${p.clusterIcon || ''}</span>
+				<div>
+					<div class="sr-title">${p.title}</div>
+					<div class="sr-desc">${p.description}</div>
+				</div>
+			</a>`
+		).join('');
+	}
+
+	// Event listeners
+	document.getElementById('searchToggle')?.addEventListener('click', openSearch);
+	document.getElementById('searchBackdrop')?.addEventListener('click', closeSearch);
+	document.getElementById('searchInput')?.addEventListener('input', (e) => {
+		doSearch((e.target as HTMLInputElement).value);
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+		if (e.key === 'Escape') closeSearch();
+	});
+</script>
+
+<style>
+	.search-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 1000;
+		align-items: flex-start;
+		justify-content: center;
+		padding-top: 10vh;
+	}
+	.search-overlay.open { display: flex; }
+	.search-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(0,0,0,0.5);
+		backdrop-filter: blur(4px);
+	}
+	.search-container {
+		position: relative;
+		width: 600px;
+		max-width: calc(100% - 2rem);
+		max-height: 70vh;
+		background: white;
+		border-radius: 16px;
+		box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+	.search-header { border-bottom: 1px solid #e5e7eb; }
+	.search-input-wrap {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.75rem 1rem;
+	}
+	.search-input-wrap svg { color: #9ca3af; flex-shrink: 0; }
+	.search-input-wrap input {
+		flex: 1;
+		border: none;
+		outline: none;
+		font-size: 1rem;
+		font-family: inherit;
+		color: #1a1a2e;
+	}
+	.search-input-wrap input::placeholder { color: #9ca3af; }
+	.search-input-wrap kbd {
+		padding: 0.15rem 0.4rem;
+		background: #f3f4f6;
+		border: 1px solid #d1d5db;
+		border-radius: 4px;
+		font-size: 0.7rem;
+		color: #6b7280;
+	}
+	.search-results {
+		overflow-y: auto;
+		padding: 0.5rem;
+	}
+	.search-empty {
+		padding: 2rem 1rem;
+		text-align: center;
+		color: #9ca3af;
+		font-size: 0.9rem;
+	}
+	.search-result {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		padding: 0.75rem;
+		text-decoration: none;
+		border-radius: 10px;
+		transition: background 0.1s;
+	}
+	.search-result:hover { background: #f0f4ff; }
+	.sr-cluster { font-size: 1.2rem; margin-top: 0.1rem; }
+	.sr-title { font-weight: 600; color: #1a1a2e; font-size: 0.9rem; line-height: 1.3; }
+	.sr-desc { color: #6b7280; font-size: 0.8rem; margin-top: 0.2rem; line-height: 1.4; }
+</style>

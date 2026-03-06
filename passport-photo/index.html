@@ -21,9 +21,9 @@
         <section id="onboarding-view" class="view active">
             <div class="onboarding-content">
                 <div class="header">
-                    <a href="../" class="back-link">← Về trang chủ HoChieuGap</a>
-                    <h2>Chụp ảnh Hộ chiếu chuẩn</h2>
-                    <p>Chỉ cần 3 bước để có bức ảnh đúng chuẩn quy định của nhà nước.</p>
+                    <a href="../" class="back-link">← Trở về HoChieuGap.vn</a>
+                    <h2>Tự Chụp Ảnh Hộ Chiếu Chuẩn AI</h2>
+                    <p>Chỉ mất 1 phút để có bức ảnh 4x6 đúng chuẩn quy định của Cục Quản lý Xuất nhập cảnh.</p>
                 </div>
 
                 <div class="guidelines">
@@ -44,21 +44,21 @@
                     <div class="guide-item">
                         <span class="icon">🚫</span>
                         <div class="text">
-                            <strong>Không kính, mũ</strong>
-                            <span>Tháo nón và kính râm/kính cận để rõ 2 tai và mắt.</span>
+                            <strong>Không đeo kính, nón</strong>
+                            <span>Tháo nón và mọi loại kính để lộ rõ vùng trán, mắt và 2 tai.</span>
                         </div>
                     </div>
                     <div class="guide-item">
                         <span class="icon">⬜</span>
                         <div class="text">
-                            <strong>Nền phẳng sáng màu</strong>
-                            <span>Đứng trước một bức tường trắng hoặc xanh trơn.</span>
+                            <strong>Nền trơn sáng màu</strong>
+                            <span>Đứng trước một bức tường phẳng trơn (tốt nhất là nền trắng).</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-footer">
-                    <button id="btn-start" class="btn primary">Bắt đầu chụp</button>
+                    <button id="btn-start" class="btn primary">📷 Mở Camera Chụp Ngay</button>
                 </div>
             </div>
         </section>
@@ -109,16 +109,16 @@
                         <span class="mode-icon">🤳</span>
                         <span class="mode-label">Tự chụp</span>
                     </button>
-                    <button id="mode-friend" class="mode-btn" title="Nhờ người chụp">
+                    <button id="mode-friend" class="mode-btn" title="Nhờ người chụp giúp">
                         <span class="mode-icon">👥</span>
-                        <span class="mode-label">Nhờ chụp</span>
+                        <span class="mode-label">Người khác chụp</span>
                     </button>
                 </div>
                 <div class="capture-zone">
                     <button id="btn-capture" class="btn-shutter" disabled>
                         <div class="shutter-inner"></div>
                     </button>
-                    <p id="capture-hint" class="auto-capture-hint">Hệ thống sẽ tự chụp khi hoàn hảo</p>
+                    <p id="capture-hint" class="auto-capture-hint">✨ Trí tuệ AI sẽ tự động chụp khi góc mặt chuẩn xác nhất</p>
                 </div>
                 <button id="btn-back-onboarding" class="btn-back-cam">✕</button>
             </div>
@@ -127,17 +127,17 @@
         <!-- Bước 3: Xem trước (Preview) -->
         <section id="preview-view" class="view hidden">
             <div class="preview-content">
-                <h2>Ảnh của bạn đã sẵn sàng</h2>
+                <h2>Tuyệt vời! Ảnh đã đạt chuẩn ICAO</h2>
                 <div class="image-wrapper">
                     <img id="preview-image" src="" alt="Captured Passport Photo" />
                 </div>
                 <div class="action-footer">
-                    <button id="btn-retake" class="btn secondary outline">Chụp lại</button>
-                    <button id="btn-download" class="btn secondary outline">⬇ Tải ảnh</button>
-                    <button id="btn-accept" class="btn primary">✅ Xác nhận dùng ảnh này</button>
+                    <button id="btn-retake" class="btn secondary outline">📸 Chụp lại</button>
+                    <button id="btn-download" class="btn secondary outline">⬇ Lưu về máy</button>
+                    <button id="btn-accept" class="btn primary">✅ Dùng ảnh này làm hồ sơ</button>
                 </div>
                 <div class="back-to-home">
-                    <a href="../" class="back-link">← Quay về trang dịch vụ Hộ Chiếu Gấp</a>
+                    <a href="../" class="back-link">← Trở về trang chủ HoChieuGap.vn</a>
                 </div>
             </div>
         </section>
@@ -146,9 +146,8 @@
         <section id="confirmation-view" class="view hidden">
             <div class="confirmation-content">
                 <div class="confirmation-icon">✅</div>
-                <h2>Ảnh hộ chiếu đã sẵn sàng!</h2>
-                <p class="confirmation-desc">Ảnh của bạn đạt chuẩn quy định. Bạn có thể tải về hoặc tiếp tục đăng ký
-                    dịch vụ hộ chiếu gấp.</p>
+                <h2>Đã Lưu Ảnh Thành Công!</h2>
+                <p class="confirmation-desc">Bức ảnh này hoàn toàn hợp lệ để làm hồ sơ xin cấp đổi hộ chiếu. Hãy tiến hành nộp hồ sơ trực tuyến ngay bên dưới để tiết kiệm thời gian.</p>
 
                 <div class="confirmation-preview">
                     <img id="confirmation-image" src="" alt="Confirmed Passport Photo" />
@@ -156,19 +155,19 @@
 
                 <div class="confirmation-actions">
                     <button class="btn primary btn-lg" id="btn-go-register">
-                        📋 Tiếp tục đăng ký dịch vụ
+                        🚀 Nộp hồ sơ làm Hộ Chiếu ngay
                     </button>
                     <button id="btn-download-final" class="btn secondary outline">
-                        ⬇ Tải ảnh về máy
+                        ⬇ Tải ảnh lưu vào điện thoại
                     </button>
                     <a href="../" class="btn ghost" id="btn-go-home">
-                        ← Quay về trang chủ HoChieuGap
+                        ← Trở về trang chủ HoChieuGap.vn
                     </a>
                 </div>
 
                 <div class="confirmation-tip">
                     <span class="tip-icon">💡</span>
-                    <span>Mẹo: Kèm ảnh này vào form đăng ký để được xử lý nhanh hơn.</span>
+                    <span>Hệ thống đã tự động đính kèm ảnh này vào hồ sơ đăng ký của bạn.</span>
                 </div>
             </div>
         </section>
@@ -180,21 +179,9 @@
                 <h2>Đăng ký Dịch vụ</h2>
             </div>
             <div class="register-content">
-                <p class="register-subtitle">Chỉ cần điền vài thông tin — chuyên viên sẽ liên hệ bạn trong 5 phút.</p>
+                <p class="register-subtitle">Hoàn tất biểu mẫu dưới đây, chuyên viên HoChieuGap sẽ liên hệ hỗ trợ bạn chưa tới 5 phút.</p>
 
-                <!-- UX: Contact Escape Hatch — cho khách lười/ngại điền form -->
-                <div class="contact-escape" id="contactEscape">
-                    <span class="contact-escape__label">Ngại điền form?</span>
-                    <div class="contact-escape__actions">
-                        <a href="https://zalo.me/0909123456" target="_blank"
-                            class="contact-escape__btn contact-escape__btn--zalo">
-                            💬 Nhắn Zalo
-                        </a>
-                        <a href="tel:0909123456" class="contact-escape__btn contact-escape__btn--phone">
-                            📞 Gọi ngay
-                        </a>
-                    </div>
-                </div>
+                <!-- Contact escape removed — tập trung form tự động hoá -->
 
                 <form id="passportRegisterForm" class="optim-form" data-form-type="passport"
                     onsubmit="window.submitToGoogleSheet(event)">
@@ -355,10 +342,10 @@
                     <!-- UX: Fitts's Law — Sticky Bottom Action Bar in Thumb Zone -->
                     <div class="sticky-action-bar">
                         <button type="submit" id="btn-submit-form" class="btn primary btn-lg btn-block touch-target">
-                            <span class="submit-text">Gửi hồ sơ ngay</span>
+                            <span class="submit-text">Hoàn tất & Gửi hồ sơ</span>
                             <div class="loader loader-small hidden" id="submit-loader"></div>
                         </button>
-                        <div class="secure-badge">🔒 Thông tin được bảo mật tuyệt đối</div>
+                        <div class="secure-badge">🔒 Dữ liệu được mã hoá và bảo mật tuyệt đối</div>
                     </div>
                 </form>
             </div>
@@ -368,15 +355,13 @@
         <section id="success-view" class="view hidden">
             <div class="confirmation-content success-full">
                 <div class="confirmation-icon bounce">🎉</div>
-                <h2>Gửi yêu cầu thành công!</h2>
-                <p class="confirmation-desc">Hồ sơ và ảnh passport chuẩn của bạn đã được ghi nhận. Chuyên viên của
-                    HoChieuGap sẽ liên hệ trong <strong>5 phút</strong> để báo giá và xử lý hồ sơ.</p>
+                <h2>Hồ Sơ Đã Được Tiếp Nhận!</h2>
+                <p class="confirmation-desc">Tuyệt vời. Chuyên viên hồ sơ của HoChieuGap sẽ gọi lại cho bạn trong <strong>tối đa 5 phút</strong> để tư vấn chi phí và hướng dẫn bước tiếp theo.</p>
 
                 <div class="success-ticket">
-                    <div class="ticket-row"><span class="label">Mã số:</span> <strong id="ticket-id">HC-8888</strong>
+                    <div class="ticket-row"><span class="label">Mã tra cứu:</span> <strong id="ticket-id">HC-8888</strong>
                     </div>
-                    <div class="ticket-row"><span class="label">Trạng thái:</span> <strong class="color-success">Đang
-                            chờ xử lý</strong></div>
+                    <div class="ticket-row"><span class="label">Trạng thái:</span> <strong class="color-success">Ưu tiên xử lý ngay lập tức</strong></div>
                 </div>
 
                 <div class="confirmation-actions">

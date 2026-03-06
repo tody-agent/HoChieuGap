@@ -1,0 +1,11 @@
+{"type": "info", "data": "Pipeline started: 85 articles to write", "time": "00:56:14"}
+{"type": "info", "data": "Dashboard started at http://content-factory:5050", "time": "00:56:14"}
+{"type": "info", "data": "[1/85] Writing: lam-ho-chieu-gap-tai-da-nang", "time": "00:56:14"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-da-nang (594+12191 tokens)", "time": "00:57:14"}
+{"type": "info", "data": "[2/85] Writing: lam-ho-chieu-gap-tai-can-tho", "time": "00:57:22"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-can-tho (594+5964 tokens)", "time": "00:58:04"}
+{"type": "info", "data": "[3/85] Writing: lam-ho-chieu-gap-tai-hai-phong", "time": "00:58:12"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-hai-phong (580+5379 tokens)", "time": "00:58:47"}
+{"type": "info", "data": "[4/85] Writing: lam-ho-chieu-gap-tai-binh-duong", "time": "00:58:55"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-binh-duong (580+4279 tokens)", "time": "00:59:23"}
+{"type": "info", "data": "[5/85] Writing: lam-ho-chieu-gap-tai-dong-nai", "time": "00:59:31"}

@@ -16,34 +16,59 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- ═══ NAVIGATION ═══ -->
+    <!-- ═══ NAVIGATION — UX: Hick's Law (max 4 primary CTAs) + Fitts's Law (44px targets) ═══ -->
     <nav class="navbar" id="navbar">
         <div class="container navbar__inner">
             <a href="#" class="navbar__brand">
                 <span class="navbar__logo">🛂</span>
                 <span class="navbar__name">HoChieuGap</span>
             </a>
+            <!-- UX: Desktop — full links visible -->
             <ul class="navbar__links" id="navLinks">
-                <li><a href="#wizard">Tìm giải pháp</a></li>
+                <!-- Primary group -->
+                <li><a href="#wizard" class="navbar__link--primary">⚡ Giải pháp</a></li>
                 <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="#pricing">Bảng giá</a></li>
-                <li><a href="#process">Quy trình</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="passport-photo/" title="Chụp ảnh hộ chiếu online">📸 Chụp ảnh HC</a></li>
-                <li><a href="#contact" class="btn btn--accent btn--sm">Liên hệ ngay</a></li>
+                <li><a href="blog-pages/">Blog</a></li>
+                <!-- Secondary group — visible only on desktop -->
+                <li class="navbar__link--secondary"><a href="#pricing">Bảng giá</a></li>
+                <li class="navbar__link--secondary"><a href="#process">Quy trình</a></li>
+                <li class="navbar__link--secondary"><a href="#faq">FAQ</a></li>
+                <li class="navbar__link--secondary"><a href="passport-photo/">Ảnh HC</a></li>
+                <!-- CTA -->
+                <li><a href="#contact" class="btn btn--accent btn--sm">📞 Liên hệ</a></li>
             </ul>
-            <button class="navbar__toggle" id="navToggle" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
+            <div class="navbar__actions">
+                <button class="navbar__search-btn" id="siteSearchToggle" aria-label="Tìm kiếm" title="Tìm kiếm (Ctrl+K)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+                <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
+
+    <!-- ═══ SEARCH OVERLAY ═══ -->
+    <div class="site-search-overlay" id="siteSearchOverlay" aria-hidden="true">
+        <div class="site-search-backdrop" id="siteSearchBackdrop"></div>
+        <div class="site-search-container">
+            <div class="site-search-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" id="siteSearchInput" placeholder="Tìm bài viết hộ chiếu..." autocomplete="off" />
+                <kbd>ESC</kbd>
+            </div>
+            <div class="site-search-results" id="siteSearchResults">
+                <div class="site-search-empty">Nhập từ khoá để tìm trong 100 bài viết hướng dẫn</div>
+            </div>
+        </div>
+    </div>
 
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="hero">
@@ -54,37 +79,38 @@
         </div>
         <div class="container hero__inner">
             <div class="hero__content">
-                <span class="hero__badge">🔥 Nhanh nhất — 24h</span>
+                <span class="hero__badge">✈️ Hơn 5,000 người đã nhận hộ chiếu đúng hẹn</span>
                 <h1 class="hero__title">
-                    Dịch vụ <span class="text-gradient">Hộ Chiếu Gấp</span><br>
-                    Mọi Tình Huống
+                    Bạn Cần <span class="text-gradient">Hộ Chiếu Gấp?</span><br>
+                    Chúng Tôi Lo Hết.
                 </h1>
                 <p class="hero__subtitle">
-                    Cấp mới · Gia hạn · Làm lại · Lấy trước hẹn · Trọn gói tại nhà<br>
-                    <strong>Cam kết đúng hẹn 100%</strong> — Hoàn tiền nếu trễ
+                    Không biết thủ tục? <strong>Không sao.</strong> Không có thời gian? <strong>Để chúng tôi.</strong><br>
+                    Chỉ 1 cuộc gọi — bạn ngồi nhà, chúng tôi xử lý từ A đến Z.<br>
+                    <strong>Cam kết đúng hẹn 100%</strong> — Hoàn tiền nếu trễ.
                 </p>
                 <div class="hero__actions">
                     <a href="#wizard" class="btn btn--accent btn--lg btn--pulse">
-                        <span>⚡</span> Tìm giải pháp ngay
+                        <span>⚡</span> Tìm giải pháp cho tôi
                     </a>
                     <a href="tel:0909123456" class="btn btn--outline btn--lg" id="heroHotline">
-                        <span>📞</span> <span id="heroPhone">0909 123 456</span>
+                        <span>📞</span> Gọi ngay — tư vấn miễn phí
                     </a>
                 </div>
                 <div class="hero__trust">
                     <div class="hero__stat">
                         <span class="hero__stat-num" data-count="5000">0</span>+
-                        <span class="hero__stat-label">Hồ sơ đã xử lý</span>
+                        <span class="hero__stat-label">Khách hàng tin tưởng</span>
+                    </div>
+                    <div class="hero__stat-divider"></div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-num" data-count="24">0</span>h
+                        <span class="hero__stat-label">Nhận HC nhanh nhất</span>
                     </div>
                     <div class="hero__stat-divider"></div>
                     <div class="hero__stat">
                         <span class="hero__stat-num" data-count="100">0</span>%
-                        <span class="hero__stat-label">Cam kết đúng hẹn</span>
-                    </div>
-                    <div class="hero__stat-divider"></div>
-                    <div class="hero__stat">
-                        <span class="hero__stat-num" data-count="10">0</span>+
-                        <span class="hero__stat-label">Năm kinh nghiệm</span>
+                        <span class="hero__stat-label">Đúng hẹn hoặc hoàn tiền</span>
                     </div>
                 </div>
             </div>
@@ -111,9 +137,9 @@
     <section class="wizard-section" id="wizard">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Công cụ tương tác</span>
-                <h2 class="section-title">Nhận giải pháp phù hợp trong 1 phút</h2>
-                <p class="section-subtitle">Trả lời 3 câu hỏi đơn giản — nhận ngay dịch vụ phù hợp và giá ước tính</p>
+                <span class="section-tag">Bắt đầu từ đây</span>
+                <h2 class="section-title">Chưa biết bắt đầu từ đâu? Để chúng tôi hướng dẫn</h2>
+                <p class="section-subtitle">Chỉ 3 câu hỏi đơn giản — bạn không cần biết gì về thủ tục. Chúng tôi sẽ tìm giải pháp và báo giá ngay.</p>
             </div>
             <div class="wizard" id="wizardContainer">
                 <!-- Progress Bar -->
@@ -136,14 +162,14 @@
     <section class="services-section" id="services">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Dịch vụ</span>
-                <h2 class="section-title">5 Dịch vụ Hộ Chiếu Gấp</h2>
-                <p class="section-subtitle">Giải pháp cho mọi tình huống — từ cấp mới đến trọn gói tại nhà</p>
+                <span class="section-tag">Giải pháp cho bạn</span>
+                <h2 class="section-title">Dù bạn ở tình huống nào — đã có giải pháp</h2>
+                <p class="section-subtitle">Mất hộ chiếu? Hết hạn gấp? Không biết thủ tục? Cần làm cho cả công ty? Chúng tôi xử lý hết.</p>
             </div>
             <!-- Dual Path Tabs -->
             <div class="dual-tabs" id="dualTabs">
-                <button class="dual-tab dual-tab--active" data-tab="individual">🧑 Cá nhân</button>
-                <button class="dual-tab" data-tab="business">🏢 Đối tác / Doanh nghiệp</button>
+                <button class="dual-tab dual-tab--active" data-tab="individual">🧑 Tôi cần làm cho bản thân</button>
+                <button class="dual-tab" data-tab="business">🏢 Tôi đại diện công ty / tổ chức</button>
             </div>
             <!-- Individual Content -->
             <div class="dual-content" id="content-individual">
@@ -155,22 +181,22 @@
             <div class="dual-content dual-content--hidden" id="content-business">
                 <div class="business-card">
                     <div class="business-card__icon">🤝</div>
-                    <h3 class="business-card__title">Chính sách Đối tác Doanh nghiệp</h3>
+                    <h3 class="business-card__title">1 Đầu mối — Xử lý hàng trăm hồ sơ mỗi tháng</h3>
                     <ul class="business-card__benefits">
-                        <li>✅ Giá ưu đãi theo số lượng hồ sơ</li>
-                        <li>✅ Hotline ưu tiên — xử lý nhanh hơn</li>
-                        <li>✅ Hợp đồng dịch vụ dài hạn</li>
-                        <li>✅ Đăng ký nhiều hồ sơ cùng lúc</li>
-                        <li>✅ Báo cáo tiến độ theo real-time</li>
-                        <li>✅ Thanh toán linh hoạt (chuyển khoản, công nợ)</li>
+                        <li>✅ <strong>Giá ưu đãi</strong> theo số lượng — tiết kiệm 20-35% so với lẻ</li>
+                        <li>✅ <strong>Hotline ưu tiên</strong> — account manager riêng, xử lý trong 5 phút</li>
+                        <li>✅ <strong>Hợp đồng dài hạn</strong> — cam kết SLA bằng văn bản</li>
+                        <li>✅ <strong>Nộp nhiều hồ sơ cùng lúc</strong> — không giới hạn số lượng</li>
+                        <li>✅ <strong>Báo cáo tiến độ real-time</strong> — biết hồ sơ đang ở bước nào</li>
+                        <li>✅ <strong>Thanh toán linh hoạt</strong> — chuyển khoản, công nợ, xuất VAT</li>
                     </ul>
                     <div class="business-card__segments">
-                        <div class="segment-chip">✈️ Du lịch</div>
-                        <div class="segment-chip">🎓 Giáo dục</div>
-                        <div class="segment-chip">🏗️ XKLĐ</div>
-                        <div class="segment-chip">🏢 Doanh nghiệp</div>
+                        <div class="segment-chip">✈️ Công ty Du lịch</div>
+                        <div class="segment-chip">🎓 Du học & Giáo dục</div>
+                        <div class="segment-chip">🏗️ Xuất khẩu Lao động</div>
+                        <div class="segment-chip">🏢 Doanh nghiệp FDI</div>
                     </div>
-                    <a href="#contact" class="btn btn--accent btn--lg">Liên hệ hợp tác →</a>
+                    <a href="#contact" class="btn btn--accent btn--lg">Nhận báo giá doanh nghiệp →</a>
                 </div>
             </div>
         </div>
@@ -180,9 +206,9 @@
     <section class="pricing-section" id="pricing">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Bảng giá</span>
-                <h2 class="section-title">Bảng giá Dịch vụ</h2>
-                <p class="section-subtitle">Giá đã bao gồm lệ phí nhà nước + phí dịch vụ. Không phát sinh thêm.</p>
+                <span class="section-tag">Minh bạch</span>
+                <h2 class="section-title">Giá trọn gói — Không phát sinh, không bất ngờ</h2>
+                <p class="section-subtitle">Đã bao gồm lệ phí nhà nước + dịch vụ xử lý gấp. Bạn trả 1 lần duy nhất — nhận hộ chiếu đúng hẹn.</p>
             </div>
             <div class="pricing-table-wrapper">
                 <table class="pricing-table" id="pricingTable">
@@ -207,9 +233,9 @@
     <section class="process-section" id="process">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Quy trình</span>
-                <h2 class="section-title">Quy trình 4 bước</h2>
-                <p class="section-subtitle">Đơn giản — Nhanh chóng — Chuyên nghiệp</p>
+                <span class="section-tag">Đơn giản</span>
+                <h2 class="section-title">Bạn không cần làm gì phức tạp — chỉ 4 bước</h2>
+                <p class="section-subtitle">Gọi cho chúng tôi, còn lại để chúng tôi lo. Bạn chỉ cần ngồi chờ nhận hộ chiếu.</p>
             </div>
             <div class="process-timeline" id="processTimeline">
                 <!-- Rendered by JS -->
@@ -221,9 +247,9 @@
     <section class="docs-section" id="documents">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Hồ sơ</span>
-                <h2 class="section-title">Hồ sơ cần chuẩn bị</h2>
-                <p class="section-subtitle">Theo Thông tư 31/2023/TT-BCA — Chúng tôi hướng dẫn chi tiết từng bước</p>
+                <span class="section-tag">Chuẩn bị gì?</span>
+                <h2 class="section-title">Không biết cần giấy tờ gì? Xem ngay danh sách</h2>
+                <p class="section-subtitle">Đừng lo — chúng tôi sẽ kiểm tra và hướng dẫn từng bước. Thiếu giấy tờ gì, chúng tôi hỗ trợ bổ sung.</p>
             </div>
             <div class="docs-grid" id="docsGrid">
                 <!-- Rendered by JS -->
@@ -244,10 +270,9 @@
     <section class="tools-section" id="tools">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Công cụ miễn phí</span>
-                <h2 class="section-title">Chụp ảnh Hộ chiếu online</h2>
-                <p class="section-subtitle">Tự chụp ảnh hộ chiếu chuẩn quy định ngay tại nhà — miễn phí, không cần cài
-                    đặt</p>
+                <span class="section-tag">Tiện ích miễn phí</span>
+                <h2 class="section-title">Chụp ảnh hộ chiếu ngay tại nhà — không cần ra tiệm</h2>
+                <p class="section-subtitle">Mở điện thoại, chụp 1 kiểu — AI tự cắt chuẩn 4×6. Miễn phí, không đăng nhập, tải ảnh ngay.</p>
             </div>
             <div class="tool-cta-card">
                 <div class="tool-cta-card__visual">
@@ -255,15 +280,15 @@
                     <div class="tool-cta-badge">✨ AI hỗ trợ</div>
                 </div>
                 <div class="tool-cta-card__content">
-                    <h3>Chụp ảnh Hộ chiếu ngay trên điện thoại</h3>
+                    <h3>Tự chụp ảnh HC chuẩn — không cần ra tiệm ảnh</h3>
                     <ul class="tool-cta-features">
-                        <li>✅ AI tự động nhận diện khuôn mặt</li>
-                        <li>✅ Khung hướng dẫn chuẩn 4×6cm</li>
-                        <li>✅ Tự chụp hoặc nhờ người chụp giúp</li>
-                        <li>✅ Tải ảnh ngay, không cần đăng nhập</li>
+                        <li>✅ AI tự nhận diện khuôn mặt — chỉ cần giơ điện thoại lên</li>
+                        <li>✅ Khung hướng dẫn chuẩn 4×6cm — không sợ sai kích thước</li>
+                        <li>✅ Nhờ con cháu chụp giúp cũng được — rất đơn giản</li>
+                        <li>✅ Tải ảnh ngay lập tức — tiết kiệm 50.000đ tiền chụp tiệm</li>
                     </ul>
                     <a href="passport-photo/" class="btn btn--accent btn--lg" id="btnToolCta">
-                        📸 Chụp ảnh Hộ chiếu ngay →
+                        📸 Chụp ảnh ngay — Miễn phí →
                     </a>
                 </div>
             </div>
@@ -274,9 +299,9 @@
     <section class="faq-section" id="faq">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Câu hỏi thường gặp</span>
-                <h2 class="section-title">FAQ</h2>
-                <p class="section-subtitle">Giải đáp thắc mắc phổ biến về dịch vụ hộ chiếu gấp</p>
+                <span class="section-tag">Thắc mắc?</span>
+                <h2 class="section-title">Mọi câu hỏi bạn đang nghĩ — đã có câu trả lời</h2>
+                <p class="section-subtitle">Nếu không thấy câu hỏi của mình, gọi ngay hotline — chúng tôi giải đáp trong 5 phút.</p>
             </div>
             <div class="faq-list" id="faqList">
                 <!-- Rendered by JS -->
@@ -288,8 +313,8 @@
     <section class="testimonials-section" id="testimonials">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Khách hàng nói gì</span>
-                <h2 class="section-title">Phản hồi từ Khách hàng</h2>
+                <span class="section-tag">Đã có 5,000+ người tin tưởng</span>
+                <h2 class="section-title">Họ cũng từng lo lắng — giờ đã cầm hộ chiếu trên tay</h2>
             </div>
             <div class="testimonials-grid" id="testimonialsGrid">
                 <!-- Rendered by JS -->
@@ -302,8 +327,8 @@
         <div class="container">
             <div class="contact-wrapper">
                 <div class="contact-info">
-                    <h2 class="contact-info__title">Liên hệ ngay</h2>
-                    <p class="contact-info__desc">Để lại thông tin, chúng tôi sẽ gọi lại trong <strong>5 phút</strong>
+                    <h2 class="contact-info__title">Chỉ 1 cuộc gọi,<br>chúng tôi lo hết.</h2>
+                    <p class="contact-info__desc">Không biết thủ tục? Gọi cho chúng tôi. Bận không có thời gian? Nhắn Zalo.<br>Chúng tôi sẽ liên hệ lại trong <strong>5 phút</strong>.
                     </p>
                     <div class="contact-info__channels">
                         <a href="tel:0909123456" class="contact-channel">
@@ -406,9 +431,9 @@
                         <div class="form-estimate__price" id="formEstimatePrice"></div>
                     </div>
                     <button type="submit" class="btn btn--accent btn--lg btn--full">
-                        Gửi yêu cầu →
+                        Gửi yêu cầu — Nhận tư vấn miễn phí →
                     </button>
-                    <p class="form-disclaimer">🔒 Thông tin bảo mật. Chúng tôi sẽ liên hệ trong 5 phút.</p>
+                    <p class="form-disclaimer">🔒 Thông tin bảo mật tuyệt đối. Chúng tôi gọi lại trong 5 phút — không spam, không phiền.</p>
                 </form>
             </div>
         </div>
@@ -420,7 +445,7 @@
             <div class="footer__brand">
                 <span class="footer__logo">🛂</span>
                 <span class="footer__name">HoChieuGap</span>
-                <p class="footer__tagline">Dịch vụ Hộ Chiếu Gấp — Nhanh · Uy Tín · Mọi Tình Huống</p>
+                <p class="footer__tagline">Bạn lo chuyến đi — Chúng tôi lo hộ chiếu.</p>
             </div>
             <div class="footer__links">
                 <h4>Dịch vụ</h4>
@@ -454,15 +479,7 @@
         </div>
     </footer>
 
-    <!-- ═══ FLOATING CTA ═══ -->
-    <div class="floating-cta" id="floatingCta">
-        <a href="tel:0909123456" class="floating-btn floating-btn--phone" title="Gọi ngay">
-            📞
-        </a>
-        <a href="https://zalo.me/0909123456" target="_blank" class="floating-btn floating-btn--zalo" title="Nhắn Zalo">
-            💬
-        </a>
-    </div>
+    <!-- Floating CTA removed — tập trung vào form tự động hoá -->
 
     <!-- ═══ SUCCESS MODAL ═══ -->
     <div class="modal-overlay" id="successModal">
@@ -482,6 +499,70 @@
     <script src="js/data.js"></script>
     <script src="js/form-handler.js"></script>
     <script src="js/app.js"></script>
+    <script>
+    // ═══ SITE SEARCH ═══
+    (function() {
+        let data = [], loaded = false;
+        const overlay = document.getElementById('siteSearchOverlay');
+        const input = document.getElementById('siteSearchInput');
+        const results = document.getElementById('siteSearchResults');
+
+        async function loadIndex() {
+            if (loaded) return;
+            try {
+                const r = await fetch('/blog-pages/search-index.json');
+                data = await r.json();
+                loaded = true;
+            } catch { data = []; }
+        }
+
+        function open() {
+            overlay.setAttribute('aria-hidden', 'false');
+            input.focus();
+            loadIndex();
+            document.body.style.overflow = 'hidden';
+        }
+        function close() {
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        function search(q) {
+            if (!q.trim()) {
+                results.innerHTML = '<div class="site-search-empty">Nhập từ khoá để tìm trong 100 bài viết hướng dẫn</div>';
+                return;
+            }
+            const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const terms = norm(q).split(/\s+/);
+            const hits = data.filter(p => {
+                const h = norm(`${p.title} ${p.description} ${(p.keywords||[]).join(' ')}`);
+                return terms.every(t => h.includes(t));
+            }).slice(0, 10);
+
+            if (!hits.length) {
+                results.innerHTML = `<div class="site-search-empty">Không tìm thấy kết quả cho "<strong>${q}</strong>"</div>`;
+                return;
+            }
+            results.innerHTML = hits.map(p =>
+                `<a href="/blog/${p.slug}/" class="site-search-result">
+                    <span class="sr-icon">${p.clusterIcon||'📄'}</span>
+                    <div>
+                        <div class="sr-title">${p.title}</div>
+                        <div class="sr-desc">${p.description}</div>
+                    </div>
+                </a>`
+            ).join('');
+        }
+
+        document.getElementById('siteSearchToggle').addEventListener('click', open);
+        document.getElementById('siteSearchBackdrop').addEventListener('click', close);
+        input.addEventListener('input', e => search(e.target.value));
+        document.addEventListener('keydown', e => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); open(); }
+            if (e.key === 'Escape') close();
+        });
+    })();
+    </script>
 </body>
 
 </html>

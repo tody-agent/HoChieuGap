@@ -1,0 +1,56 @@
+{
+  "niche": "passport-service",
+  "brand": {
+    "name": "HoChieuGap",
+    "slogan": "Dịch vụ Hộ Chiếu Gấp — Nhanh · Uy Tín · Mọi Tình Huống",
+    "tone": "professional-warm",
+    "language": "vi",
+    "colors": {
+      "primary": "#1a1a2e",
+      "secondary": "#16213e",
+      "accent": "#e74c3c"
+    }
+  },
+  "content": {
+    "article_types": [
+      { "id": "situation", "title_template": "{topic} — Hướng Dẫn Chi Tiết", "category": "tình huống", "seo_intent": "transactional" },
+      { "id": "guide", "title_template": "{topic} — Hướng Dẫn A-Z 2026", "category": "hướng dẫn", "seo_intent": "informational" },
+      { "id": "comparison", "title_template": "{topic} — So Sánh & Đánh Giá", "category": "so sánh", "seo_intent": "commercial" }
+    ],
+    "frontmatter_schema": {
+      "required": ["title", "description", "pubDate", "cluster", "keywords"],
+      "optional": ["isPillar", "readingTime", "relatedSlugs", "heroImage", "updatedDate"]
+    },
+    "word_count": { "min": 1200, "max": 2000 },
+    "language": "vi"
+  },
+  "sources": {
+    "type": "manual",
+    "path": "knowledge-base/"
+  },
+  "output": {
+    "content_dir": "blog/src/content/blog/",
+    "knowledge_dir": "knowledge-base/",
+    "queue_dir": "topics-queue/"
+  },
+  "pipeline": {
+    "concurrency": 3,
+    "ai_provider": "gemini-cli",
+    "ai_model": "gemini-2.0-flash",
+    "auto_validate": true,
+    "auto_publish": false
+  },
+  "seo": {
+    "title_max_length": 60,
+    "description_max_length": 160,
+    "slug_max_length": 75,
+    "keyword_density": { "min": 0.5, "max": 1.5 }
+  },
+  "audit": {
+    "error_patterns": ["lorem ipsum", "{{", "}}", "TODO", "FIXME"],
+    "min_headings": 3,
+    "require_faq": true,
+    "require_cta": true,
+    "require_disclaimer": false
+  }
+}

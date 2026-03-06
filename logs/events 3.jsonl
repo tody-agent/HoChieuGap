@@ -1,0 +1,9 @@
+{"type": "info", "data": "Pipeline started: 3 articles to write", "time": "00:53:27"}
+{"type": "info", "data": "Dashboard started at http://content-factory:5050", "time": "00:53:27"}
+{"type": "info", "data": "[1/3] Writing: lam-ho-chieu-gap-tai-da-nang", "time": "00:53:27"}
+{"type": "error", "data": "❌ lam-ho-chieu-gap-tai-da-nang: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateCon", "time": "00:53:33"}
+{"type": "info", "data": "[2/3] Writing: lam-ho-chieu-gap-tai-can-tho", "time": "00:53:41"}
+{"type": "error", "data": "❌ lam-ho-chieu-gap-tai-can-tho: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateCon", "time": "00:53:44"}
+{"type": "info", "data": "[3/3] Writing: lam-ho-chieu-gap-tai-hai-phong", "time": "00:53:52"}
+{"type": "error", "data": "❌ lam-ho-chieu-gap-tai-hai-phong: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateCon", "time": "00:53:56"}
+{"type": "info", "data": "🏁 Pipeline complete: 0/3 articles, 3 failed", "time": "00:53:56"}

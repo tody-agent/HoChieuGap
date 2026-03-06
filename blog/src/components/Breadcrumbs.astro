@@ -18,7 +18,7 @@ const clusterInfo = CLUSTERS[cluster as keyof typeof CLUSTERS];
 		</li>
 		<li class="breadcrumbs__separator" aria-hidden="true">›</li>
 		<li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-			<a href="/blog/" itemprop="item"><span itemprop="name">Blog</span></a>
+			<a href={import.meta.env.BASE_URL} itemprop="item"><span itemprop="name">Blog</span></a>
 			<meta itemprop="position" content="2" />
 		</li>
 		{clusterInfo && (

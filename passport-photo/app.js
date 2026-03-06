@@ -3,7 +3,44 @@
 // Vietnam passport 4x6cm standard overlay guide
 // Supports: auto-capture (self) + friend-capture mode
 
-// --- Configurations & State ---
+// ==========================================
+// DOM REFERENCES (all in one place)
+// ==========================================
+const videoElement = document.getElementById('videoElement');
+const canvasElement = document.getElementById('canvasElement');
+const statusText = document.getElementById('status-text');
+const guideFrame = document.getElementById('guide-frame');
+const guideOval = document.getElementById('guide-oval');
+const countdownElement = document.getElementById('countdown-overlay');
+const countdownNumber = document.getElementById('countdown-number');
+const btnCapture = document.getElementById('btn-capture');
+const captureHint = document.getElementById('capture-hint');
+const previewImage = document.getElementById('preview-image');
+const confirmationImage = document.getElementById('confirmation-image');
+
+// Views
+const onboardingView = document.getElementById('onboarding-view');
+const cameraView = document.getElementById('camera-view');
+const previewView = document.getElementById('preview-view');
+const confirmationView = document.getElementById('confirmation-view');
+const registerView = document.getElementById('register-view');
+const successView = document.getElementById('success-view');
+
+// Buttons
+const btnStart = document.getElementById('btn-start');
+const modeSelf = document.getElementById('mode-self');
+const modeFriend = document.getElementById('mode-friend');
+const btnBackOnboarding = document.getElementById('btn-back-onboarding');
+const btnRetake = document.getElementById('btn-retake');
+const btnAccept = document.getElementById('btn-accept');
+const btnDownload = document.getElementById('btn-download');
+const btnDownloadFinal = document.getElementById('btn-download-final');
+const btnGoRegister = document.getElementById('btn-go-register');
+const btnBackRegister = document.getElementById('btn-back-register');
+
+// ==========================================
+// STATE
+// ==========================================
 let faceDetector = null;
 let isModelLoaded = false;
 let stream = null;
@@ -14,17 +51,16 @@ const DETECTION_INTERVAL_MS = 200;
 let consecutivePerfectFrames = 0;
 const PERFECT_FRAMES_THRESHOLD = 8;
 
-let captureMode = 'self';
+let cameraMode = 'self'; // 'self' or 'friend'
 let countdownTimer = null;
-let countdownValue = 0;
 let isCapturing = false;
-let finalImageDataUrl = null; // Lưu ảnh cuối cùng
+let finalImageDataUrl = null;
 
-// --- Load MediaPipe (dynamic import, non-blocking) ---
+// ==========================================
+// LOAD MEDIAPIPE (dynamic, non-blocking)
+// ==========================================
 async function loadModels() {
-    statusText.textContent = "Đang tải công cụ AI...";
-    // Assuming aiLoader is replaced by statusText or a new element
-    // UI.aiLoader.classList.add('active'); // Removed as aiLoader is not in new UI
+    statusText.textContent = "Khởi động Trí tuệ AI...";
     try {
         const visionModule = await import(
             'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs'
@@ -44,40 +80,43 @@ async function loadModels() {
         });
 
         isModelLoaded = true;
-        statusText.textContent = "Sẵn sàng";
-        // UI.aiLoader.classList.remove('active'); // Removed
+        statusText.textContent = "AI Đã Sẵn Sàng";
         console.log("✅ MediaPipe Face Detector loaded");
     } catch (err) {
         console.error("❌ Error loading MediaPipe:", err);
-        statusText.textContent = "Lỗi tải AI. Bạn vẫn có thể chụp bằng tay.";
-        // UI.aiLoader.classList.remove('active'); // Removed
+        statusText.textContent = "Khởi động AI thất bại. Bạn có thể tự bấm nút chụp.";
         btnCapture.disabled = false;
     }
 }
 
-// --- View Navigation ---
-// Đổi view helper mượt mà hơn với GSAP (ưu tiên CSS transitions, fallback bằng DOM manipulation)
-function switchView(fromView, toViewAction) {
-    // Animation CSS thông qua classes (ẩn dần)
+// ==========================================
+// VIEW NAVIGATION
+// ==========================================
+function switchView(fromView, toView) {
+    if (!fromView || !toView) return;
+
+    // Fade out current view
     fromView.style.opacity = '0';
+    fromView.style.pointerEvents = 'none';
 
     setTimeout(() => {
+        // Hide old view
         fromView.classList.add('hidden');
+        fromView.style.opacity = '';
+        fromView.style.pointerEvents = '';
 
-        // Xử lý custom actions cho view mới trước khi hiển thị
-        if (typeof toViewAction === 'function') {
-            toViewAction();
-        } else if (toViewAction instanceof HTMLElement) {
-            // Nếu chỉ truyền node
-            toViewAction.classList.remove('hidden');
-            // Force reflow
-            void toViewAction.offsetWidth;
-            toViewAction.style.opacity = '1';
-        }
-    }, 300); // 300ms khớp CSS transition (nếu có)
+        // Show new view
+        toView.style.opacity = '0';
+        toView.classList.remove('hidden');
+        // Force reflow for transition
+        void toView.offsetWidth;
+        toView.style.opacity = '1';
+    }, 300);
 }
 
-// --- Camera Logic ---
+// ==========================================
+// CAMERA LOGIC
+// ==========================================
 async function startCamera() {
     try {
         stream = await navigator.mediaDevices.getUserMedia({
@@ -94,8 +133,8 @@ async function startCamera() {
         });
     } catch (err) {
         console.error("Camera error:", err);
-        alert("Không thể truy cập camera. Vui lòng cấp quyền trong cài đặt trình duyệt.");
-        switchView(cameraView, onboardingView); // Adjusted to new switchView
+        alert("Vui lòng cấp quyền Camera trong cài đặt trình duyệt để sử dụng tính năng này.");
+        switchView(cameraView, onboardingView);
         throw err;
     }
 }
@@ -116,16 +155,17 @@ function stopCamera() {
     videoElement.srcObject = null;
 }
 
-// --- Face Detection Loop (rAF + Throttle) ---
+// ==========================================
+// FACE DETECTION LOOP (rAF + Throttle)
+// ==========================================
 function startFaceDetection() {
     if (!isModelLoaded || !faceDetector) {
-        // AI not loaded yet — enable manual capture
         btnCapture.disabled = false;
-        statusText.textContent = "AI chưa sẵn sàng — chụp bằng tay";
+        statusText.textContent = "AI chưa sẵn sàng — Vui lòng tự bấm nút chụp";
         return;
     }
 
-    statusText.textContent = "Đang tìm khuôn mặt...";
+    statusText.textContent = "Đang quét tìm khuôn mặt...";
     if (cameraMode === 'self') {
         btnCapture.disabled = true;
     }
@@ -150,10 +190,12 @@ function startFaceDetection() {
     animationFrameId = requestAnimationFrame(detectLoop);
 }
 
-// --- Process Detection Results ---
+// ==========================================
+// PROCESS DETECTION RESULTS
+// ==========================================
 function processDetectionResult(result) {
     if (!result || !result.detections || result.detections.length === 0) {
-        setGuideState('error', 'Chưa tìm thấy khuôn mặt');
+        setGuideState('error', 'Chưa nhận diện được khuôn mặt');
         if (cameraMode === 'self') btnCapture.disabled = true;
         consecutivePerfectFrames = 0;
         btnCapture.classList.remove('shutter-auto-taking');
@@ -178,21 +220,21 @@ function processDetectionResult(result) {
     const isCenteredY = Math.abs(faceCenterY - targetCenterY) < videoHeight * 0.15;
 
     if (!isRightSize) {
-        const hint = faceWidthRatio < 0.22 ? '📏 Lại gần hơn' : '📏 Lùi xa hơn';
+        const hint = faceWidthRatio < 0.22 ? '🔍 Di chuyển lại gần camera hơn' : '🔍 Lùi ra xa camera một chút';
         setGuideState('warning', hint);
         consecutivePerfectFrames = 0;
         btnCapture.classList.remove('shutter-auto-taking');
     } else if (!isCenteredX || !isCenteredY) {
-        let hint = '↔️ Đưa mặt ';
-        if (!isCenteredY && faceCenterY < targetCenterY) hint += 'xuống thấp hơn';
-        else if (!isCenteredY) hint += 'lên cao hơn';
+        let hint = '↔️ Hãy di chuyển mặt nhẹ ';
+        if (!isCenteredY && faceCenterY < targetCenterY) hint += 'xuống dưới';
+        else if (!isCenteredY) hint += 'lên trên';
         else if (!isCenteredX && faceCenterX < videoWidth / 2) hint += 'sang phải';
         else hint += 'sang trái';
         setGuideState('warning', hint);
         consecutivePerfectFrames = 0;
         btnCapture.classList.remove('shutter-auto-taking');
     } else {
-        setGuideState('success', '✅ Tuyệt vời! Giữ yên...');
+        setGuideState('success', '✨ Hoàn hảo! Xin giữ nguyên tư thế...');
         consecutivePerfectFrames++;
 
         if (cameraMode === 'self' && consecutivePerfectFrames > PERFECT_FRAMES_THRESHOLD) {
@@ -212,16 +254,18 @@ function setGuideState(stateClass, message) {
     statusText.textContent = message;
 }
 
-// --- Countdown (Friend Mode) ---
+// ==========================================
+// COUNTDOWN (Friend Mode)
+// ==========================================
 function startCountdown() {
-    let countdownValue = 3; // Renamed to avoid conflict with global countdownValue
+    let cdValue = 3;
     countdownElement.classList.add('active');
-    countdownNumber.textContent = countdownValue;
+    countdownNumber.textContent = cdValue;
 
     countdownTimer = setInterval(() => {
-        countdownValue--;
-        if (countdownValue > 0) {
-            countdownNumber.textContent = countdownValue;
+        cdValue--;
+        if (cdValue > 0) {
+            countdownNumber.textContent = cdValue;
             countdownNumber.classList.add('pulse');
             setTimeout(() => countdownNumber.classList.remove('pulse'), 200);
         } else {
@@ -233,7 +277,9 @@ function startCountdown() {
     }, 1000);
 }
 
-// --- Capture & Crop ---
+// ==========================================
+// CAPTURE & CROP
+// ==========================================
 function takePhoto() {
     btnCapture.classList.remove('shutter-auto-taking');
 
@@ -255,52 +301,53 @@ function takePhoto() {
 
     ctx.drawImage(videoElement, -offsetX, 0, drawW, ch);
 
-    finalImageDataUrl = canvasElement.toDataURL('image/jpeg', 0.92); // Store in finalImageDataUrl
+    finalImageDataUrl = canvasElement.toDataURL('image/jpeg', 0.92);
     previewImage.src = finalImageDataUrl;
 
     stopCamera();
-    switchView(cameraView, previewView); // Adjusted to new switchView
+    switchView(cameraView, previewView);
 }
 
-// --- Mode Toggle ---
+// ==========================================
+// MODE TOGGLE
+// ==========================================
 function setMode(mode) {
-    cameraMode = mode; // Renamed captureMode to cameraMode
-    btnStartCamera.classList.toggle('active', mode === 'self'); // Assuming btnStartCamera is 'mode-self'
-    btnStartFriendCamera.classList.toggle('active', mode === 'friend'); // Assuming btnStartFriendCamera is 'mode-friend'
+    cameraMode = mode;
+    modeSelf.classList.toggle('active', mode === 'self');
+    modeFriend.classList.toggle('active', mode === 'friend');
 
     if (mode === 'friend') {
         btnCapture.disabled = false;
-        instructionOverlay.textContent = 'Nhờ người khác bấm nút chụp giùm';
+        captureHint.textContent = 'Nhờ người thân bấm nút chụp giúp bạn';
     } else {
-        instructionOverlay.textContent = 'Hệ thống sẽ tự chụp khi hoàn hảo';
+        captureHint.textContent = '✨ Trí tuệ AI sẽ tự động chụp khi góc mặt chuẩn xác nhất';
     }
 }
 
 // ==========================================
-// EVENT LISTENERS (always attached, never blocked)
+// EVENT LISTENERS
 // ==========================================
 
-// Replaced UI.btnStart with btnStartCamera and btnStartFriendCamera
-btnStartCamera.addEventListener('click', async () => {
-    setMode('self'); // Set mode explicitly
-    switchView(onboardingView, cameraView); // Adjusted to new switchView
+// Start camera (from onboarding)
+btnStart.addEventListener('click', async () => {
+    switchView(onboardingView, cameraView);
     await startCamera();
     startFaceDetection();
 });
 
-btnStartFriendCamera.addEventListener('click', async () => {
-    setMode('friend'); // Set mode explicitly
-    switchView(onboardingView, cameraView); // Adjusted to new switchView
-    await startCamera();
-    startFaceDetection();
+// Mode toggles (within camera view)
+modeSelf.addEventListener('click', () => setMode('self'));
+modeFriend.addEventListener('click', () => setMode('friend'));
+
+// Back to onboarding from camera
+btnBackOnboarding.addEventListener('click', () => {
+    stopCamera();
+    switchView(cameraView, onboardingView);
 });
 
-// Replaced UI.btnBackOnboarding with a new back button if needed, or removed if flow changed.
-// Assuming the new flow doesn't have a direct "back to onboarding" from camera view.
-// If needed, a new button would be required.
-
+// Capture button
 btnCapture.addEventListener('click', () => {
-    if (cameraMode === 'friend') { // Renamed captureMode to cameraMode
+    if (cameraMode === 'friend') {
         startCountdown();
     } else {
         if (animationFrameId) {
@@ -311,45 +358,41 @@ btnCapture.addEventListener('click', () => {
     }
 });
 
-UI.btnRetake.addEventListener('click', async () => {
-    switchView('camera');
+// Retake — go back to camera
+btnRetake.addEventListener('click', async () => {
+    switchView(previewView, cameraView);
     consecutivePerfectFrames = 0;
-    UI.guideFrame.className = 'guide-frame state-default';
-    UI.guideOval.className = 'guide-oval state-default';
-    UI.statusText.textContent = 'Đang tải Camera...';
+    guideFrame.className = 'guide-frame state-default';
+    guideOval.className = 'guide-oval state-default';
+    statusText.textContent = 'Đang kết nối Camera...';
     await startCamera();
     startFaceDetection();
 });
 
-UI.btnAccept.addEventListener('click', () => {
-    // Transfer image to confirmation view
-    UI.confirmationImage.src = UI.previewImage.src;
-    switchView('confirmation');
+// Accept photo → confirmation
+btnAccept.addEventListener('click', () => {
+    confirmationImage.src = previewImage.src;
+    switchView(previewView, confirmationView);
 });
 
-UI.btnDownload.addEventListener('click', () => {
+// Download from preview
+btnDownload.addEventListener('click', () => {
     const link = document.createElement('a');
     link.download = 'passport-photo.jpg';
-    link.href = UI.previewImage.src;
+    link.href = previewImage.src;
     link.click();
 });
 
-UI.btnDownloadFinal.addEventListener('click', () => {
+// Download from confirmation
+btnDownloadFinal.addEventListener('click', () => {
     const link = document.createElement('a');
     link.download = 'passport-photo.jpg';
-    link.href = UI.confirmationImage.src;
+    link.href = confirmationImage.src;
     link.click();
 });
-
-UI.modeSelf.addEventListener('click', () => setMode('self'));
-UI.modeFriend.addEventListener('click', () => setMode('friend'));
 
 // --- Register Form Wiring ---
-const btnGoRegister = document.getElementById('btn-go-register');
-const registerView = document.getElementById('register-view');
-const confirmationView = document.getElementById('confirmation-view');
 const passportForm = document.getElementById('passportRegisterForm');
-const successView = document.getElementById('success-view');
 
 if (btnGoRegister) {
     btnGoRegister.addEventListener('click', () => {
@@ -357,15 +400,11 @@ if (btnGoRegister) {
         const regImageData = document.getElementById('regImageData');
         const regHasPhoto = document.getElementById('regHasPhoto');
         if (regImageData && finalImageDataUrl) {
-            // Don't send base64 to Google Sheet (too large), just flag
-            regImageData.value = ''; // Clear — photo stays local
+            regImageData.value = '';
             if (regHasPhoto) regHasPhoto.value = 'Có';
         }
 
-        // Switch: confirmation → register
-        confirmationView.classList.add('hidden');
-        registerView.classList.remove('hidden');
-        registerView.style.opacity = '1';
+        switchView(confirmationView, registerView);
 
         // Scroll to top of register view
         const regContent = registerView.querySelector('.register-content');
@@ -374,46 +413,35 @@ if (btnGoRegister) {
 }
 
 // Back from register → confirmation
-const btnBackRegister = document.getElementById('btn-back-register');
 if (btnBackRegister) {
     btnBackRegister.addEventListener('click', () => {
-        registerView.classList.add('hidden');
-        confirmationView.classList.remove('hidden');
-        confirmationView.style.opacity = '1';
+        switchView(registerView, confirmationView);
     });
 }
 
 // Form submission success → show success view
 if (passportForm) {
     passportForm.addEventListener('form:success', () => {
-        // Hide register view, show success view
-        registerView.classList.add('hidden');
-        if (successView) {
-            // Populate success ticket info from form data
-            const name = document.getElementById('regName')?.value || '';
-            const service = document.getElementById('regService')?.selectedOptions[0]?.text || '';
-            const urgency = document.getElementById('regUrgency')?.selectedOptions[0]?.text || '';
-            const phone = document.getElementById('regPhone')?.value || '';
+        const name = document.getElementById('regName')?.value || '';
+        const service = document.getElementById('regService')?.selectedOptions[0]?.text || '';
+        const urgency = document.getElementById('regUrgency')?.selectedOptions[0]?.text || '';
+        const phone = document.getElementById('regPhone')?.value || '';
 
-            // Generate ticket ID (timestamp-based)
-            const ticketId = 'HCG-' + Date.now().toString(36).toUpperCase();
+        const ticketId = 'HCG-' + Date.now().toString(36).toUpperCase();
 
-            // Fill ticket rows if they exist
-            const ticketContainer = successView.querySelector('.success-ticket');
-            if (ticketContainer) {
-                ticketContainer.innerHTML = `
-                    <div class="ticket-row"><span class="label">Mã đơn:</span><strong>${ticketId}</strong></div>
-                    <div class="ticket-row"><span class="label">Họ tên:</span><span>${name}</span></div>
-                    <div class="ticket-row"><span class="label">SĐT:</span><span>${phone}</span></div>
-                    <div class="ticket-row"><span class="label">Dịch vụ:</span><span>${service}</span></div>
-                    <div class="ticket-row"><span class="label">Mức độ gấp:</span><span class="color-success">${urgency}</span></div>
-                    <div class="ticket-row"><span class="label">Có ảnh:</span><span class="color-success">✅ Có</span></div>
-                `;
-            }
-
-            successView.classList.remove('hidden');
-            successView.style.opacity = '1';
+        const ticketContainer = successView.querySelector('.success-ticket');
+        if (ticketContainer) {
+            ticketContainer.innerHTML = `
+                <div class="ticket-row"><span class="label">Mã đơn:</span><strong>${ticketId}</strong></div>
+                <div class="ticket-row"><span class="label">Họ tên:</span><span>${name}</span></div>
+                <div class="ticket-row"><span class="label">SĐT:</span><span>${phone}</span></div>
+                <div class="ticket-row"><span class="label">Dịch vụ:</span><span>${service}</span></div>
+                <div class="ticket-row"><span class="label">Mức độ gấp:</span><span class="color-success">${urgency}</span></div>
+                <div class="ticket-row"><span class="label">Có ảnh:</span><span class="color-success">✅ Có</span></div>
+            `;
         }
+
+        switchView(registerView, successView);
     });
 }
 

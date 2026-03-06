@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
   initTestimonials();
   initContactForm();
-  initFloatingCTA();
   initAnimations();
   initCountUp();
 });
@@ -414,14 +413,7 @@ function closeModal() {
   document.getElementById('successModal').classList.remove('modal-overlay--open');
 }
 
-// ═══ FLOATING CTA ═══
-function initFloatingCTA() {
-  const cta = document.getElementById('floatingCta');
-
-  window.addEventListener('scroll', () => {
-    cta.classList.toggle('floating-cta--visible', window.scrollY > 400);
-  });
-}
+// Floating CTA removed — tập trung form tự động hoá
 
 // ═══ SCROLL ANIMATIONS ═══
 function initAnimations() {

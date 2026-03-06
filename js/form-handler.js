@@ -22,23 +22,23 @@ const FORM_CONFIG = {
     MAX_RETRIES: 3,
     PHONE_REGEX: /^0\d{8,10}$/,
     MESSAGES: {
-        sending: 'Đang gửi...',
+        sending: 'Đang mã hoá & gửi hồ sơ...',
         retrying: (attempt, max) => `Đang thử lại (${attempt}/${max})...`,
         phoneInvalid: {
-            title: 'Số điện thoại không hợp lệ',
-            msg: 'Vui lòng nhập số điện thoại bắt đầu bằng 0, từ 9–11 chữ số.',
+            title: 'Số điện thoại chưa chuẩn xác',
+            msg: 'Vui lòng nhập số điện thoại thật (bắt đầu bằng 0, từ 9–11 chữ số) để chúng tôi có thể liên hệ.',
         },
         success: {
-            title: 'Gửi yêu cầu thành công! 🎉',
-            msg: 'Chuyên viên sẽ liên hệ bạn trong 5 phút. Nhắn Zalo để được tư vấn nhanh hơn!',
+            title: 'Hồ Sơ Đã Được Tiếp Nhận! 🎉',
+            msg: 'Chuyên viên HoChieuGap sẽ gọi lại trong tối đa 5 phút. Nhắn Zalo để được ưu tiên xử lý ngay!',
         },
         retryNotice: {
-            title: 'Đang thử lại...',
-            msg: (attempt, max) => `Lần ${attempt}/${max} — Vui lòng chờ trong giây lát.`,
+            title: 'Kết nối yếu, đang thử lại...',
+            msg: (attempt, max) => `Lần ${attempt}/${max} — Vui lòng giữ nguyên trang trong vài giây.`,
         },
         error: {
-            title: 'Gửi không thành công',
-            msg: 'Hệ thống đang bận. Vui lòng nhắn Zalo hoặc gọi hotline để được hỗ trợ ngay!',
+            title: 'Kết nối tạm thời bị gián đoạn',
+            msg: 'Vui lòng nhắn Zalo hoặc gọi hotline để được hỗ trợ lập tức. Xin lỗi bạn vì sự bất tiện này!',
         },
     },
 };

@@ -1,49 +1,301 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import SearchOverlay from '../components/SearchOverlay.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, CLUSTERS } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const clusterEntries = Object.entries(CLUSTERS);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<style>
+			/* UX: Prevent horizontal scroll globally */
+			html, body { overflow-x: hidden; }
+
+			main {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 2rem 1.25rem;
+				font-family: 'Be Vietnam Pro', sans-serif;
+			}
+
+			/* --- Page Header --- */
+			.page-header {
+				text-align: center;
+				margin-bottom: 1.5rem;
+				padding: 0 0.5rem;
+			}
+			.page-header h1 {
+				font-size: clamp(1.4rem, 4vw, 2rem);
+				color: #1a1a2e;
+				margin: 0 0 0.4rem;
+				line-height: 1.3;
+				/* UX: Prevent text overflow on narrow screens */
+				overflow-wrap: break-word;
+				word-break: break-word;
+			}
+			.page-header p {
+				color: #6b7280;
+				font-size: 0.9rem;
+				line-height: 1.5;
+			}
+
+			/* --- Cluster Filter Tabs --- */
+			/* UX: Hick's Law — Horizontal scroll instead of overwhelming wall of buttons */
+			.cluster-tabs {
+				display: flex;
+				gap: 0.5rem;
+				margin-bottom: 1.75rem;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+				scrollbar-width: none;
+				padding: 0.25rem 0;
+			}
+			.cluster-tabs::-webkit-scrollbar { display: none; }
+
+			/* UX: Fitts's Law — Touch targets ≥ 44px height */
+			.cluster-tab {
+				flex-shrink: 0;
+				min-height: 40px;
+				padding: 0.5rem 1rem;
+				border: 1.5px solid #e5e7eb;
+				border-radius: 999px;
+				background: white;
+				color: #374151;
+				font-size: 0.82rem;
+				font-weight: 500;
+				cursor: pointer;
+				transition: all 0.15s ease;
+				text-decoration: none;
+				font-family: inherit;
+				white-space: nowrap;
+			}
+			.cluster-tab:hover {
+				border-color: #0B3D6B;
+				color: #0B3D6B;
+				background: #f0f7ff;
+			}
+			/* UX: A11y — focus-visible ring for keyboard navigation */
+			.cluster-tab:focus-visible {
+				outline: none;
+				box-shadow: 0 0 0 3px rgba(11, 61, 107, 0.3);
+			}
+			.cluster-tab.active {
+				background: #0B3D6B;
+				color: white;
+				border-color: #0B3D6B;
+			}
+
+			/* --- Post Grid --- */
+			.posts-grid {
+				display: grid;
+				/* UX: Responsive grid — 1col mobile, 2col tablet, 3col desktop */
+				grid-template-columns: 1fr;
+				gap: 1rem;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			@media (min-width: 540px) {
+				.posts-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+			@media (min-width: 860px) {
+				.posts-grid { grid-template-columns: repeat(3, 1fr); }
+			}
+
+			/* --- Post Card --- */
+			.post-card {
+				background: white;
+				border: 1px solid #e5e7eb;
+				border-radius: 12px;
+				/* UX: Prevent content overflow */
+				overflow: hidden;
+				transition: box-shadow 0.2s ease, border-color 0.2s ease;
+			}
+			/* UX: Stable hover — no transform to avoid layout shift */
+			.post-card:hover {
+				box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+				border-color: #c7d2dd;
+			}
+			/* UX: Fitts's Law — entire card is clickable, proper padding */
+			.post-card a {
+				display: block;
+				padding: 1rem 1.1rem;
+				text-decoration: none;
+				min-height: 44px;
+				cursor: pointer;
+			}
+
+			/* --- Post Meta --- */
+			.post-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+				margin-bottom: 0.5rem;
+				flex-wrap: wrap;
+			}
+			.post-cluster-badge {
+				padding: 0.2rem 0.5rem;
+				background: #f0f4ff;
+				border-radius: 999px;
+				font-size: 0.7rem;
+				font-weight: 600;
+				color: #2563eb;
+				white-space: nowrap;
+			}
+			.post-date {
+				font-size: 0.72rem;
+				color: #9ca3af;
+			}
+			.pillar-tag {
+				display: inline-block;
+				padding: 0.1rem 0.4rem;
+				background: linear-gradient(135deg, #f59e0b, #d97706);
+				color: white;
+				font-size: 0.6rem;
+				font-weight: 700;
+				border-radius: 4px;
+				text-transform: uppercase;
+			}
+
+			/* --- Post Title & Description --- */
+			/* UX: Text overflow prevention */
+			.post-title {
+				margin: 0 0 0.35rem;
+				font-size: 0.92rem;
+				font-weight: 600;
+				color: #1a1a2e;
+				line-height: 1.4;
+				overflow-wrap: break-word;
+				word-break: break-word;
+				/* Clamp to 2 lines for visual consistency */
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			.post-desc {
+				margin: 0;
+				font-size: 0.8rem;
+				color: #6b7280;
+				line-height: 1.5;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				overflow-wrap: break-word;
+				word-break: break-word;
+			}
+
+			/* --- Empty State --- */
+			/* UX: Doherty — Designed empty state instead of blank */
+			.empty-state {
+				text-align: center;
+				padding: 3rem 1rem;
+				color: #9ca3af;
+				grid-column: 1 / -1;
+			}
+
+			/* --- Results Count --- */
+			.results-count {
+				text-align: center;
+				font-size: 0.8rem;
+				color: #9ca3af;
+				margin-bottom: 1rem;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
+			<div class="page-header">
+				<h1>Blog Hộ Chiếu & Xuất Nhập Cảnh</h1>
+				<p>100 bài hướng dẫn chi tiết — thủ tục, chi phí, mẹo tiết kiệm thời gian</p>
+			</div>
+
+			<!-- UX: Hick's Law — Horizontal scrollable tabs, not overwhelming grid -->
+			<div class="cluster-tabs" id="clusterTabs" role="tablist" aria-label="Lọc theo chuyên mục">
+				<button class="cluster-tab active" data-cluster="all" role="tab" aria-selected="true">Tất cả</button>
+				{clusterEntries.map(([key, c]) => (
+					<button class="cluster-tab" data-cluster={key} role="tab" aria-selected="false">{c.icon} {c.name}</button>
+				))}
+			</div>
+
+			<p class="results-count" id="resultsCount">{posts.length} bài viết</p>
+
+			<ul class="posts-grid" id="postsGrid">
+				{posts.map((post) => (
+					<li class="post-card" data-cluster={post.data.cluster}>
+						<a href={`${import.meta.env.BASE_URL}/${post.id}/`}>
+							<div class="post-meta">
+								{CLUSTERS[post.data.cluster as keyof typeof CLUSTERS] && (
+									<span class="post-cluster-badge">
+										{CLUSTERS[post.data.cluster as keyof typeof CLUSTERS].icon}
+										{CLUSTERS[post.data.cluster as keyof typeof CLUSTERS].name}
+									</span>
+								)}
+								{post.data.isPillar && <span class="pillar-tag">Pillar</span>}
+								<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
+							</div>
+							<h3 class="post-title">{post.data.title}</h3>
+							<p class="post-desc">{post.data.description}</p>
+						</a>
+					</li>
+				))}
 			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
 		</main>
 		<Footer />
+		<SearchOverlay />
+
+		<script>
+			const tabs = document.querySelectorAll('.cluster-tab');
+			const cards = document.querySelectorAll('.post-card');
+			const countEl = document.getElementById('resultsCount');
+
+			function updateCount() {
+				const visible = document.querySelectorAll('.post-card:not([style*="display: none"])').length;
+				if (countEl) countEl.textContent = `${visible} bài viết`;
+			}
+
+			tabs.forEach(tab => {
+				tab.addEventListener('click', () => {
+					// UX: A11y — Update aria-selected
+					tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+					tab.classList.add('active');
+					tab.setAttribute('aria-selected', 'true');
+					const cluster = tab.getAttribute('data-cluster');
+					cards.forEach(card => {
+						const el = card as HTMLElement;
+						if (cluster === 'all' || el.dataset.cluster === cluster) {
+							el.style.display = '';
+						} else {
+							el.style.display = 'none';
+						}
+					});
+					updateCount();
+				});
+			});
+
+			// Check URL for cluster filter
+			const params = new URLSearchParams(window.location.search);
+			const urlCluster = params.get('cluster');
+			if (urlCluster) {
+				const targetTab = document.querySelector(`[data-cluster="${urlCluster}"]`) as HTMLElement;
+				targetTab?.click();
+			}
+		</script>
 	</body>
 </html>

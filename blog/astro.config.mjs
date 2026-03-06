@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://hochieugap.vn',
-	base: '/blog',
+	base: '/blog-pages',
 	integrations: [mdx(), sitemap()],
 	i18n: {
 		defaultLocale: 'vi',

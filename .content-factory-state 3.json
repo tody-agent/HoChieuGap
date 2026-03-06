@@ -1,0 +1,16 @@
+{
+  "phase": "writing",
+  "total": 3,
+  "completed": 0,
+  "failed": 0,
+  "current_article": "lam-ho-chieu-gap-tai-da-nang",
+  "started_at": "00:52:44",
+  "errors": [],
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "cost_usd": 0.0
+  },
+  "paused": false,
+  "pause_reason": ""
+}

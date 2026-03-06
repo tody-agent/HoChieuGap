@@ -1,0 +1,16 @@
+{
+  "phase": "writing",
+  "total": 85,
+  "completed": 4,
+  "failed": 0,
+  "current_article": "lam-ho-chieu-gap-tai-dong-nai",
+  "started_at": "00:56:14",
+  "errors": [],
+  "token_usage": {
+    "input": 2348,
+    "output": 27813,
+    "cost_usd": 0.0114
+  },
+  "paused": false,
+  "pause_reason": ""
+}
