@@ -1,15 +1,15 @@
 {
-  "phase": "writing",
+  "phase": "done",
   "total": 85,
-  "completed": 24,
+  "completed": 85,
   "failed": 0,
-  "current_article": "lam-ho-chieu-gap-tai-hai-duong",
+  "current_article": "",
   "started_at": "00:56:14",
   "errors": [],
   "token_usage": {
-    "input": 14060,
-    "output": 352652,
-    "cost_usd": 0.1425
+    "input": 48142,
+    "output": 1320187,
+    "cost_usd": 0.5329
   },
   "paused": false,
   "pause_reason": ""

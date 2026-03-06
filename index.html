@@ -35,7 +35,7 @@
                 <!-- Primary group -->
                 <li><a href="#wizard" class="navbar__link--primary">⚡ Giải pháp</a></li>
                 <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="blog-pages/">Blog</a></li>
+                <li><a href="bai-viet/">Blog</a></li>
                 <!-- Secondary group — visible only on desktop -->
                 <li class="navbar__dropdown navbar__link--secondary" aria-haspopup="true">
                     <a href="javascript:void(0)">Hỗ trợ ▾</a>
@@ -518,7 +518,7 @@
         async function loadIndex() {
             if (loaded) return;
             try {
-                const r = await fetch('/blog-pages/search-index.json');
+                const r = await fetch('/bai-viet/search-index.json');
                 data = await r.json();
                 loaded = true;
             } catch { data = []; }
@@ -552,7 +552,7 @@
                 return;
             }
             results.innerHTML = hits.map(p =>
-                `<a href="/blog/${p.slug}/" class="site-search-result">
+                `<a href="/bai-viet/${p.slug}/" class="site-search-result">
                     <span class="sr-icon">${p.clusterIcon||'📄'}</span>
                     <div>
                         <div class="sr-title">${p.title}</div>

@@ -52,3 +52,137 @@
 {"type": "info", "data": "[24/85] Writing: lam-ho-chieu-gap-tai-nam-dinh", "time": "01:27:27"}
 {"type": "success", "data": "✅ lam-ho-chieu-gap-tai-nam-dinh (580+4043 tokens)", "time": "01:27:54"}
 {"type": "info", "data": "[25/85] Writing: lam-ho-chieu-gap-tai-hai-duong", "time": "01:28:02"}
+{"type": "warning", "data": "lam-ho-chieu-gap-tai-hai-duong: Missing FAQ section", "time": "01:32:07"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-hai-duong (580+60978 tokens)", "time": "01:32:07"}
+{"type": "info", "data": "[26/85] Writing: lam-ho-chieu-gap-tai-gia-lai", "time": "01:32:15"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-gia-lai (580+15885 tokens)", "time": "01:33:32"}
+{"type": "info", "data": "[27/85] Writing: lam-ho-chieu-gap-tai-dak-lak", "time": "01:33:40"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-dak-lak (608+4656 tokens)", "time": "01:34:17"}
+{"type": "info", "data": "[28/85] Writing: lam-ho-chieu-gap-tai-binh-dinh", "time": "01:34:25"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-binh-dinh (580+6490 tokens)", "time": "01:35:02"}
+{"type": "info", "data": "[29/85] Writing: lam-ho-chieu-gap-tai-quang-ngai", "time": "01:35:10"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-quang-ngai (587+4911 tokens)", "time": "01:35:40"}
+{"type": "info", "data": "[30/85] Writing: lam-ho-chieu-gap-tai-thai-binh", "time": "01:35:48"}
+{"type": "warning", "data": "lam-ho-chieu-gap-tai-thai-binh: Missing FAQ section", "time": "01:37:31"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-thai-binh (580+25429 tokens)", "time": "01:37:31"}
+{"type": "info", "data": "[31/85] Writing: ho-chieu-di-singapore", "time": "01:37:39"}
+{"type": "success", "data": "✅ ho-chieu-di-singapore (563+4022 tokens)", "time": "01:38:02"}
+{"type": "info", "data": "[32/85] Writing: ho-chieu-di-uc", "time": "01:38:10"}
+{"type": "warning", "data": "ho-chieu-di-uc: Missing FAQ section", "time": "01:38:39"}
+{"type": "success", "data": "✅ ho-chieu-di-uc (571+814 tokens)", "time": "01:38:39"}
+{"type": "info", "data": "[33/85] Writing: ho-chieu-di-canada", "time": "01:38:47"}
+{"type": "success", "data": "✅ ho-chieu-di-canada (560+13304 tokens)", "time": "01:39:51"}
+{"type": "info", "data": "[34/85] Writing: ho-chieu-di-duc", "time": "01:39:59"}
+{"type": "success", "data": "✅ ho-chieu-di-duc (554+4976 tokens)", "time": "01:40:33"}
+{"type": "info", "data": "[35/85] Writing: ho-chieu-di-anh-quoc", "time": "01:40:41"}
+{"type": "warning", "data": "ho-chieu-di-anh-quoc: Missing FAQ section", "time": "01:41:51"}
+{"type": "success", "data": "✅ ho-chieu-di-anh-quoc (561+15655 tokens)", "time": "01:41:51"}
+{"type": "info", "data": "[36/85] Writing: ho-chieu-di-phap", "time": "01:41:59"}
+{"type": "warning", "data": "ho-chieu-di-phap: Missing FAQ section", "time": "01:45:58"}
+{"type": "success", "data": "✅ ho-chieu-di-phap (554+62968 tokens)", "time": "01:45:58"}
+{"type": "info", "data": "[37/85] Writing: ho-chieu-di-y", "time": "01:46:06"}
+{"type": "success", "data": "✅ ho-chieu-di-y (554+8661 tokens)", "time": "01:46:54"}
+{"type": "info", "data": "[38/85] Writing: ho-chieu-di-tay-ban-nha", "time": "01:47:02"}
+{"type": "success", "data": "✅ ho-chieu-di-tay-ban-nha (564+26409 tokens)", "time": "01:48:51"}
+{"type": "info", "data": "[39/85] Writing: ho-chieu-di-new-zealand", "time": "01:48:59"}
+{"type": "success", "data": "✅ ho-chieu-di-new-zealand (559+4775 tokens)", "time": "01:49:35"}
+{"type": "info", "data": "[40/85] Writing: ho-chieu-di-dai-loan", "time": "01:49:43"}
+{"type": "success", "data": "✅ ho-chieu-di-dai-loan (561+6614 tokens)", "time": "01:50:20"}
+{"type": "info", "data": "[41/85] Writing: ho-chieu-di-trung-quoc", "time": "01:50:28"}
+{"type": "warning", "data": "ho-chieu-di-trung-quoc: Missing FAQ section", "time": "01:54:33"}
+{"type": "success", "data": "✅ ho-chieu-di-trung-quoc (563+62548 tokens)", "time": "01:54:33"}
+{"type": "info", "data": "[42/85] Writing: ho-chieu-di-an-do", "time": "01:54:41"}
+{"type": "success", "data": "✅ ho-chieu-di-an-do (561+4869 tokens)", "time": "01:55:14"}
+{"type": "info", "data": "[43/85] Writing: ho-chieu-di-campuchia", "time": "01:55:22"}
+{"type": "success", "data": "✅ ho-chieu-di-campuchia (566+4910 tokens)", "time": "01:55:56"}
+{"type": "info", "data": "[44/85] Writing: ho-chieu-di-lao", "time": "01:56:04"}
+{"type": "success", "data": "✅ ho-chieu-di-lao (563+4524 tokens)", "time": "01:56:36"}
+{"type": "info", "data": "[45/85] Writing: ho-chieu-di-myanmar", "time": "01:56:44"}
+{"type": "success", "data": "✅ ho-chieu-di-myanmar (556+12520 tokens)", "time": "01:57:50"}
+{"type": "info", "data": "[46/85] Writing: ho-chieu-di-philippines", "time": "01:57:58"}
+{"type": "success", "data": "✅ ho-chieu-di-philippines (563+16806 tokens)", "time": "01:59:14"}
+{"type": "info", "data": "[47/85] Writing: ho-chieu-di-indonesia", "time": "01:59:22"}
+{"type": "success", "data": "✅ ho-chieu-di-indonesia (563+4494 tokens)", "time": "01:59:57"}
+{"type": "info", "data": "[48/85] Writing: ho-chieu-di-malaysia", "time": "02:00:05"}
+{"type": "success", "data": "✅ ho-chieu-di-malaysia (563+24888 tokens)", "time": "02:01:48"}
+{"type": "info", "data": "[49/85] Writing: ho-chieu-di-uae", "time": "02:01:56"}
+{"type": "warning", "data": "ho-chieu-di-uae: Missing FAQ section", "time": "02:05:52"}
+{"type": "success", "data": "✅ ho-chieu-di-uae (563+63906 tokens)", "time": "02:05:52"}
+{"type": "info", "data": "[50/85] Writing: ho-chieu-di-qatar", "time": "02:06:00"}
+{"type": "warning", "data": "ho-chieu-di-qatar: Missing FAQ section", "time": "02:06:33"}
+{"type": "success", "data": "✅ ho-chieu-di-qatar (556+728 tokens)", "time": "02:06:33"}
+{"type": "info", "data": "[51/85] Writing: ho-chieu-di-saudi-arabia", "time": "02:06:41"}
+{"type": "success", "data": "✅ ho-chieu-di-saudi-arabia (561+12502 tokens)", "time": "02:07:38"}
+{"type": "info", "data": "[52/85] Writing: ho-chieu-di-bo-dao-nha", "time": "02:07:46"}
+{"type": "success", "data": "✅ ho-chieu-di-bo-dao-nha (574+24658 tokens)", "time": "02:09:30"}
+{"type": "info", "data": "[53/85] Writing: ho-chieu-di-ha-lan", "time": "02:09:38"}
+{"type": "success", "data": "✅ ho-chieu-di-ha-lan (559+10757 tokens)", "time": "02:10:27"}
+{"type": "info", "data": "[54/85] Writing: ho-chieu-di-thuy-si", "time": "02:10:35"}
+{"type": "success", "data": "✅ ho-chieu-di-thuy-si (569+6316 tokens)", "time": "02:11:08"}
+{"type": "info", "data": "[55/85] Writing: ho-chieu-di-thuy-dien", "time": "02:11:16"}
+{"type": "success", "data": "✅ ho-chieu-di-thuy-dien (569+48815 tokens)", "time": "02:14:41"}
+{"type": "info", "data": "[56/85] Writing: ho-chieu-di-ba-lan", "time": "02:14:49"}
+{"type": "success", "data": "✅ ho-chieu-di-ba-lan (559+32733 tokens)", "time": "02:17:07"}
+{"type": "info", "data": "[57/85] Writing: ho-chieu-di-sec", "time": "02:17:15"}
+{"type": "success", "data": "✅ ho-chieu-di-sec (559+4833 tokens)", "time": "02:17:48"}
+{"type": "info", "data": "[58/85] Writing: ho-chieu-di-hungary", "time": "02:17:56"}
+{"type": "success", "data": "✅ ho-chieu-di-hungary (554+11241 tokens)", "time": "02:18:56"}
+{"type": "info", "data": "[59/85] Writing: ho-chieu-di-tho-nhi-ky", "time": "02:19:04"}
+{"type": "success", "data": "✅ ho-chieu-di-tho-nhi-ky (576+5302 tokens)", "time": "02:19:43"}
+{"type": "info", "data": "[60/85] Writing: ho-chieu-di-israel", "time": "02:19:51"}
+{"type": "success", "data": "✅ ho-chieu-di-israel (562+57336 tokens)", "time": "02:23:25"}
+{"type": "info", "data": "[61/85] Writing: ho-chieu-het-han-khi-dang-o-nuoc-ngoai", "time": "02:23:33"}
+{"type": "success", "data": "✅ ho-chieu-het-han-khi-dang-o-nuoc-ngoai (557+4468 tokens)", "time": "02:24:05"}
+{"type": "info", "data": "[62/85] Writing: lam-ho-chieu-khi-cccd-bi-mat", "time": "02:24:13"}
+{"type": "warning", "data": "lam-ho-chieu-khi-cccd-bi-mat: Missing FAQ section", "time": "02:27:45"}
+{"type": "success", "data": "✅ lam-ho-chieu-khi-cccd-bi-mat (540+54964 tokens)", "time": "02:27:45"}
+{"type": "info", "data": "[63/85] Writing: ho-chieu-bi-tu-choi-tai-san-bay", "time": "02:27:53"}
+{"type": "success", "data": "✅ ho-chieu-bi-tu-choi-tai-san-bay (562+5088 tokens)", "time": "02:28:26"}
+{"type": "info", "data": "[64/85] Writing: ho-chieu-sai-ten-phai-lam-sao", "time": "02:28:34"}
+{"type": "success", "data": "✅ ho-chieu-sai-ten-phai-lam-sao (535+4698 tokens)", "time": "02:29:05"}
+{"type": "info", "data": "[65/85] Writing: ho-chieu-gap-cho-nguoi-benh-nang", "time": "02:29:13"}
+{"type": "success", "data": "✅ ho-chieu-gap-cho-nguoi-benh-nang (538+4857 tokens)", "time": "02:29:45"}
+{"type": "info", "data": "[66/85] Writing: bay-quoc-te-qua-canh-can-ho-chieu-gi", "time": "02:29:53"}
+{"type": "success", "data": "✅ bay-quoc-te-qua-canh-can-ho-chieu-gi (551+20104 tokens)", "time": "02:31:21"}
+{"type": "info", "data": "[67/85] Writing: tre-em-bi-giu-lai-cua-khau-vi-ho-chieu", "time": "02:31:29"}
+{"type": "success", "data": "✅ tre-em-bi-giu-lai-cua-khau-vi-ho-chieu (564+5052 tokens)", "time": "02:32:04"}
+{"type": "info", "data": "[68/85] Writing: ho-chieu-bi-tich-thu-phai-lam-sao", "time": "02:32:12"}
+{"type": "warning", "data": "ho-chieu-bi-tich-thu-phai-lam-sao: Missing FAQ section", "time": "02:33:45"}
+{"type": "success", "data": "✅ ho-chieu-bi-tich-thu-phai-lam-sao (549+23475 tokens)", "time": "02:33:45"}
+{"type": "info", "data": "[69/85] Writing: ho-chieu-bi-tu-choi-cap", "time": "02:33:53"}
+{"type": "success", "data": "✅ ho-chieu-bi-tu-choi-cap (545+5326 tokens)", "time": "02:34:33"}
+{"type": "info", "data": "[70/85] Writing: huy-chuyen-bay-vi-ho-chieu-claim-bao-hiem", "time": "02:34:41"}
+{"type": "success", "data": "✅ huy-chuyen-bay-vi-ho-chieu-claim-bao-hiem (535+5810 tokens)", "time": "02:35:12"}
+{"type": "info", "data": "[71/85] Writing: lam-ho-chieu-khi-mang-thai", "time": "02:35:20"}
+{"type": "success", "data": "✅ lam-ho-chieu-khi-mang-thai (542+4500 tokens)", "time": "02:35:48"}
+{"type": "info", "data": "[72/85] Writing: ho-chieu-cho-nguoi-dang-nam-vien", "time": "02:35:56"}
+{"type": "warning", "data": "ho-chieu-cho-nguoi-dang-nam-vien: Missing FAQ section", "time": "02:36:33"}
+{"type": "success", "data": "✅ ho-chieu-cho-nguoi-dang-nam-vien (546+1407 tokens)", "time": "02:36:33"}
+{"type": "info", "data": "[73/85] Writing: ho-chieu-cho-nguoi-bi-tam-than", "time": "02:36:42"}
+{"type": "success", "data": "✅ ho-chieu-cho-nguoi-bi-tam-than (543+5408 tokens)", "time": "02:37:16"}
+{"type": "info", "data": "[74/85] Writing: giam-ho-lam-ho-chieu-cho-tre-mo-coi", "time": "02:37:24"}
+{"type": "success", "data": "✅ giam-ho-lam-ho-chieu-cho-tre-mo-coi (555+4488 tokens)", "time": "02:37:54"}
+{"type": "info", "data": "[75/85] Writing: ho-chieu-sau-ket-hon-doi-ten", "time": "02:38:02"}
+{"type": "success", "data": "✅ ho-chieu-sau-ket-hon-doi-ten (538+20089 tokens)", "time": "02:39:32"}
+{"type": "info", "data": "[76/85] Writing: ho-chieu-sau-ly-hon-doi-ho-con", "time": "02:39:40"}
+{"type": "success", "data": "✅ ho-chieu-sau-ly-hon-doi-ho-con (549+4911 tokens)", "time": "02:40:13"}
+{"type": "info", "data": "[77/85] Writing: bo-me-gia-lan-dau-ra-nuoc-ngoai", "time": "02:40:21"}
+{"type": "success", "data": "✅ bo-me-gia-lan-dau-ra-nuoc-ngoai (552+5437 tokens)", "time": "02:40:50"}
+{"type": "info", "data": "[78/85] Writing: couple-du-lich-honeymoon-can-gi", "time": "02:40:58"}
+{"type": "success", "data": "✅ couple-du-lich-honeymoon-can-gi (532+25732 tokens)", "time": "02:42:46"}
+{"type": "info", "data": "[79/85] Writing: gia-dinh-3-the-he-du-lich-can-biet", "time": "02:42:54"}
+{"type": "success", "data": "✅ gia-dinh-3-the-he-du-lich-can-biet (562+4743 tokens)", "time": "02:43:24"}
+{"type": "info", "data": "[80/85] Writing: ho-chieu-cho-3-4-nguoi-cung-luc", "time": "02:43:32"}
+{"type": "success", "data": "✅ ho-chieu-cho-3-4-nguoi-cung-luc (547+17320 tokens)", "time": "02:44:51"}
+{"type": "info", "data": "[81/85] Writing: lam-ho-chieu-khi-dang-co-lenh-cam-xuat-canh", "time": "02:44:59"}
+{"type": "success", "data": "✅ lam-ho-chieu-khi-dang-co-lenh-cam-xuat-canh (547+7021 tokens)", "time": "02:45:50"}
+{"type": "info", "data": "[82/85] Writing: ho-chieu-gap-ngay-le-tet", "time": "02:45:58"}
+{"type": "success", "data": "✅ ho-chieu-gap-ngay-le-tet (551+4472 tokens)", "time": "02:46:27"}
+{"type": "info", "data": "[83/85] Writing: ho-chieu-bi-dinh-nuoc-muc-mo-hong", "time": "02:46:35"}
+{"type": "success", "data": "✅ ho-chieu-bi-dinh-nuoc-muc-mo-hong (570+5294 tokens)", "time": "02:47:11"}
+{"type": "info", "data": "[84/85] Writing: lam-2-ho-chieu-cung-luc-duoc-khong", "time": "02:47:19"}
+{"type": "success", "data": "✅ lam-2-ho-chieu-cung-luc-duoc-khong (554+13748 tokens)", "time": "02:48:24"}
+{"type": "info", "data": "[85/85] Writing: ho-chieu-gap-cho-doan-cong-tac-nhieu-nguoi", "time": "02:48:32"}
+{"type": "warning", "data": "ho-chieu-gap-cho-doan-cong-tac-nhieu-nguoi: Missing FAQ section", "time": "02:50:20"}
+{"type": "success", "data": "✅ ho-chieu-gap-cho-doan-cong-tac-nhieu-nguoi (543+27890 tokens)", "time": "02:50:20"}
+{"type": "info", "data": "🏁 Pipeline complete: 85/85 articles, 0 failed", "time": "02:50:20"}
