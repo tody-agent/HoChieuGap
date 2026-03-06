@@ -270,12 +270,19 @@ function initPricing() {
   const tbody = document.getElementById('pricingBody');
   const rows = SERVICES.map(svc => {
     const prices = PRICING[svc.id];
+    
+    const renderPrice = (price) => {
+        if (!price) return 'Liên hệ';
+        const anchor = price * 1.2;
+        return `<del style="color:var(--c-text-muted); font-size: 0.85em; display:block; margin-bottom: 2px;">${formatVND(anchor)}</del>${formatVND(price)}`;
+    };
+
     return `
       <tr>
         <td>${svc.icon} ${svc.title}</td>
-        <td class="price-cell">${formatVND(prices['3-day'])}</td>
-        <td class="price-cell">${formatVND(prices['2-day'])}</td>
-        <td class="price-cell price-cell--hot">${formatVND(prices['1-day'])}</td>
+        <td class="price-cell">${renderPrice(prices['3-day'])}</td>
+        <td class="price-cell">${renderPrice(prices['2-day'])}</td>
+        <td class="price-cell price-cell--hot">${renderPrice(prices['1-day'])}</td>
       </tr>
     `;
   }).join('');

@@ -37,10 +37,15 @@
                 <li><a href="#services">Dịch vụ</a></li>
                 <li><a href="blog-pages/">Blog</a></li>
                 <!-- Secondary group — visible only on desktop -->
-                <li class="navbar__link--secondary"><a href="#pricing">Bảng giá</a></li>
-                <li class="navbar__link--secondary"><a href="#process">Quy trình</a></li>
-                <li class="navbar__link--secondary"><a href="#faq">FAQ</a></li>
-                <li class="navbar__link--secondary"><a href="passport-photo/">Ảnh HC</a></li>
+                <li class="navbar__dropdown navbar__link--secondary" aria-haspopup="true">
+                    <a href="javascript:void(0)">Hỗ trợ ▾</a>
+                    <ul class="dropdown-menu" aria-label="submenu">
+                        <li><a href="#pricing">Bảng giá</a></li>
+                        <li><a href="#process">Quy trình</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="passport-photo/">Ảnh HC</a></li>
+                    </ul>
+                </li>
                 <!-- CTA -->
                 <li><a href="#contact" class="btn btn--accent btn--sm">📞 Liên hệ</a></li>
             </ul>
@@ -84,7 +89,7 @@
                     Bạn Cần <span class="text-gradient">Hộ Chiếu Gấp?</span><br>
                     Chúng Tôi Lo Hết.
                 </h1>
-                <p class="hero__subtitle">
+                <p class="hero__subtitle max-w-prose">
                     Không biết thủ tục? <strong>Không sao.</strong> Không có thời gian? <strong>Để chúng tôi.</strong><br>
                     Chỉ 1 cuộc gọi — bạn ngồi nhà, chúng tôi xử lý từ A đến Z.<br>
                     <strong>Cam kết đúng hẹn 100%</strong> — Hoàn tiền nếu trễ.
@@ -139,7 +144,7 @@
             <div class="section-header">
                 <span class="section-tag">Bắt đầu từ đây</span>
                 <h2 class="section-title">Chưa biết bắt đầu từ đâu? Để chúng tôi hướng dẫn</h2>
-                <p class="section-subtitle">Chỉ 3 câu hỏi đơn giản — bạn không cần biết gì về thủ tục. Chúng tôi sẽ tìm giải pháp và báo giá ngay.</p>
+                <p class="section-subtitle max-w-prose">Chỉ 3 câu hỏi đơn giản — bạn không cần biết gì về thủ tục. Chúng tôi sẽ tìm giải pháp và báo giá ngay.</p>
             </div>
             <div class="wizard" id="wizardContainer">
                 <!-- Progress Bar -->
@@ -164,7 +169,7 @@
             <div class="section-header">
                 <span class="section-tag">Giải pháp cho bạn</span>
                 <h2 class="section-title">Dù bạn ở tình huống nào — đã có giải pháp</h2>
-                <p class="section-subtitle">Mất hộ chiếu? Hết hạn gấp? Không biết thủ tục? Cần làm cho cả công ty? Chúng tôi xử lý hết.</p>
+                <p class="section-subtitle max-w-prose">Mất hộ chiếu? Hết hạn gấp? Không biết thủ tục? Cần làm cho cả công ty? Chúng tôi xử lý hết.</p>
             </div>
             <!-- Dual Path Tabs -->
             <div class="dual-tabs" id="dualTabs">
@@ -208,7 +213,7 @@
             <div class="section-header">
                 <span class="section-tag">Minh bạch</span>
                 <h2 class="section-title">Giá trọn gói — Không phát sinh, không bất ngờ</h2>
-                <p class="section-subtitle">Đã bao gồm lệ phí nhà nước + dịch vụ xử lý gấp. Bạn trả 1 lần duy nhất — nhận hộ chiếu đúng hẹn.</p>
+                <p class="section-subtitle max-w-prose">Đã bao gồm lệ phí nhà nước + dịch vụ xử lý gấp. Bạn trả 1 lần duy nhất — nhận hộ chiếu đúng hẹn.</p>
             </div>
             <div class="pricing-table-wrapper">
                 <table class="pricing-table" id="pricingTable">
@@ -235,7 +240,7 @@
             <div class="section-header">
                 <span class="section-tag">Đơn giản</span>
                 <h2 class="section-title">Bạn không cần làm gì phức tạp — chỉ 4 bước</h2>
-                <p class="section-subtitle">Gọi cho chúng tôi, còn lại để chúng tôi lo. Bạn chỉ cần ngồi chờ nhận hộ chiếu.</p>
+                <p class="section-subtitle max-w-prose">Gọi cho chúng tôi, còn lại để chúng tôi lo. Bạn chỉ cần ngồi chờ nhận hộ chiếu.</p>
             </div>
             <div class="process-timeline" id="processTimeline">
                 <!-- Rendered by JS -->
@@ -249,7 +254,7 @@
             <div class="section-header">
                 <span class="section-tag">Chuẩn bị gì?</span>
                 <h2 class="section-title">Không biết cần giấy tờ gì? Xem ngay danh sách</h2>
-                <p class="section-subtitle">Đừng lo — chúng tôi sẽ kiểm tra và hướng dẫn từng bước. Thiếu giấy tờ gì, chúng tôi hỗ trợ bổ sung.</p>
+                <p class="section-subtitle max-w-prose">Đừng lo — chúng tôi sẽ kiểm tra và hướng dẫn từng bước. Thiếu giấy tờ gì, chúng tôi hỗ trợ bổ sung.</p>
             </div>
             <div class="docs-grid" id="docsGrid">
                 <!-- Rendered by JS -->
@@ -272,7 +277,7 @@
             <div class="section-header">
                 <span class="section-tag">Tiện ích miễn phí</span>
                 <h2 class="section-title">Chụp ảnh hộ chiếu ngay tại nhà — không cần ra tiệm</h2>
-                <p class="section-subtitle">Mở điện thoại, chụp 1 kiểu — AI tự cắt chuẩn 4×6. Miễn phí, không đăng nhập, tải ảnh ngay.</p>
+                <p class="section-subtitle max-w-prose">Mở điện thoại, chụp 1 kiểu — AI tự cắt chuẩn 4×6. Miễn phí, không đăng nhập, tải ảnh ngay.</p>
             </div>
             <div class="tool-cta-card">
                 <div class="tool-cta-card__visual">
@@ -301,7 +306,7 @@
             <div class="section-header">
                 <span class="section-tag">Thắc mắc?</span>
                 <h2 class="section-title">Mọi câu hỏi bạn đang nghĩ — đã có câu trả lời</h2>
-                <p class="section-subtitle">Nếu không thấy câu hỏi của mình, gọi ngay hotline — chúng tôi giải đáp trong 5 phút.</p>
+                <p class="section-subtitle max-w-prose">Nếu không thấy câu hỏi của mình, gọi ngay hotline — chúng tôi giải đáp trong 5 phút.</p>
             </div>
             <div class="faq-list" id="faqList">
                 <!-- Rendered by JS -->
@@ -473,8 +478,11 @@
             </div>
         </div>
         <div class="footer__bottom">
-            <div class="container">
-                <p>© 2026 HoChieuGap. Mọi quyền được bảo lưu.</p>
+            <p>&copy; 2024 HoChieuGap. All rights reserved.</p>
+            <div class="trust-signals" style="margin-top: 12px; font-size: 13px; color: var(--c-text-light); display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <span>🔒 Bảo mật SSL 256-bit</span>
+                <span>🏛️ Đúng chuẩn pháp lý</span>
+                <span>✨ Cam kết đúng hẹn 100%</span>
             </div>
         </div>
     </footer>

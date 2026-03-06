@@ -9,3 +9,46 @@
 {"type": "info", "data": "[4/85] Writing: lam-ho-chieu-gap-tai-binh-duong", "time": "00:58:55"}
 {"type": "success", "data": "✅ lam-ho-chieu-gap-tai-binh-duong (580+4279 tokens)", "time": "00:59:23"}
 {"type": "info", "data": "[5/85] Writing: lam-ho-chieu-gap-tai-dong-nai", "time": "00:59:31"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-dong-nai (580+4602 tokens)", "time": "01:00:01"}
+{"type": "info", "data": "[6/85] Writing: lam-ho-chieu-gap-tai-khanh-hoa", "time": "01:00:09"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-khanh-hoa (580+5324 tokens)", "time": "01:00:45"}
+{"type": "info", "data": "[7/85] Writing: lam-ho-chieu-gap-tai-quang-ninh", "time": "01:00:53"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-quang-ninh (580+5381 tokens)", "time": "01:01:31"}
+{"type": "info", "data": "[8/85] Writing: lam-ho-chieu-gap-tai-thua-thien-hue", "time": "01:01:39"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-thua-thien-hue (594+5732 tokens)", "time": "01:02:17"}
+{"type": "info", "data": "[9/85] Writing: lam-ho-chieu-gap-tai-nghe-an", "time": "01:02:25"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-nghe-an (587+30505 tokens)", "time": "01:04:34"}
+{"type": "info", "data": "[10/85] Writing: lam-ho-chieu-gap-tai-thanh-hoa", "time": "01:04:42"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-thanh-hoa (587+4027 tokens)", "time": "01:05:10"}
+{"type": "info", "data": "[11/85] Writing: lam-ho-chieu-gap-tai-bac-ninh", "time": "01:05:18"}
+{"type": "warning", "data": "lam-ho-chieu-gap-tai-bac-ninh: Missing FAQ section", "time": "01:09:51"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-bac-ninh (580+63967 tokens)", "time": "01:09:51"}
+{"type": "info", "data": "[12/85] Writing: lam-ho-chieu-gap-tai-vinh-phuc", "time": "01:09:59"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-vinh-phuc (587+35858 tokens)", "time": "01:12:24"}
+{"type": "info", "data": "[13/85] Writing: lam-ho-chieu-gap-tai-hung-yen", "time": "01:12:32"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-hung-yen (587+5648 tokens)", "time": "01:13:09"}
+{"type": "info", "data": "[14/85] Writing: lam-ho-chieu-gap-tai-thai-nguyen", "time": "01:13:17"}
+{"type": "warning", "data": "lam-ho-chieu-gap-tai-thai-nguyen: Contains forbidden pattern: lorem ipsum, Contains forbidden pattern: {{, Contains forbidden pattern: }}, Contains forbidden pattern: TODO, Contains forbidden pattern: FIXME", "time": "01:17:59"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-thai-nguyen (580+64149 tokens)", "time": "01:17:59"}
+{"type": "info", "data": "[15/85] Writing: lam-ho-chieu-gap-tai-lam-dong", "time": "01:18:07"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-lam-dong (580+4234 tokens)", "time": "01:18:37"}
+{"type": "info", "data": "[16/85] Writing: lam-ho-chieu-gap-tai-ba-ria-vung-tau", "time": "01:18:45"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-ba-ria-vung-tau (622+5561 tokens)", "time": "01:19:21"}
+{"type": "info", "data": "[17/85] Writing: lam-ho-chieu-gap-tai-long-an", "time": "01:19:29"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-long-an (580+55739 tokens)", "time": "01:23:20"}
+{"type": "info", "data": "[18/85] Writing: lam-ho-chieu-gap-tai-tien-giang", "time": "01:23:28"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-tien-giang (587+6210 tokens)", "time": "01:24:07"}
+{"type": "info", "data": "[19/85] Writing: lam-ho-chieu-gap-tai-an-giang", "time": "01:24:15"}
+{"type": "warning", "data": "lam-ho-chieu-gap-tai-an-giang: Missing FAQ section", "time": "01:24:49"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-an-giang (580+5803 tokens)", "time": "01:24:49"}
+{"type": "info", "data": "[20/85] Writing: lam-ho-chieu-gap-tai-kien-giang", "time": "01:24:57"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-kien-giang (587+4789 tokens)", "time": "01:25:28"}
+{"type": "info", "data": "[21/85] Writing: lam-ho-chieu-gap-tai-quang-nam", "time": "01:25:36"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-quang-nam (580+3496 tokens)", "time": "01:25:59"}
+{"type": "info", "data": "[22/85] Writing: lam-ho-chieu-gap-tai-binh-thuan", "time": "01:26:07"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-binh-thuan (587+4757 tokens)", "time": "01:26:39"}
+{"type": "info", "data": "[23/85] Writing: lam-ho-chieu-gap-tai-phu-tho", "time": "01:26:47"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-phu-tho (587+5014 tokens)", "time": "01:27:19"}
+{"type": "info", "data": "[24/85] Writing: lam-ho-chieu-gap-tai-nam-dinh", "time": "01:27:27"}
+{"type": "success", "data": "✅ lam-ho-chieu-gap-tai-nam-dinh (580+4043 tokens)", "time": "01:27:54"}
+{"type": "info", "data": "[25/85] Writing: lam-ho-chieu-gap-tai-hai-duong", "time": "01:28:02"}

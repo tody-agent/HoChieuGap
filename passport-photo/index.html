@@ -23,7 +23,7 @@
                 <div class="header">
                     <a href="../" class="back-link">← Trở về HoChieuGap.vn</a>
                     <h2>Tự Chụp Ảnh Hộ Chiếu Chuẩn AI</h2>
-                    <p>Chỉ mất 1 phút để có bức ảnh 4x6 đúng chuẩn quy định của Cục Quản lý Xuất nhập cảnh.</p>
+                    <p class="max-w-prose">Chỉ mất 1 phút để có bức ảnh 4x6 đúng chuẩn quy định của Cục Quản lý Xuất nhập cảnh.</p>
                 </div>
 
                 <div class="guidelines">
@@ -66,7 +66,12 @@
         <!-- Bước 2: Camera Capture -->
         <section id="camera-view" class="view hidden">
             <div class="camera-wrapper">
-                <video id="videoElement" autoplay playsinline muted></video>
+                <!-- Floating back button (top-left) -->
+                <button id="btn-back-onboarding" class="btn-back-floating" aria-label="Quay lại">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+
+                <video id="videoElement" autoplay playsinline muted class="mirror"></video>
 
                 <!-- Passport Guide Overlay -->
                 <div class="overlay-container">
@@ -120,7 +125,16 @@
                     </button>
                     <p id="capture-hint" class="auto-capture-hint">✨ Trí tuệ AI sẽ tự động chụp khi góc mặt chuẩn xác nhất</p>
                 </div>
-                <button id="btn-back-onboarding" class="btn-back-cam">✕</button>
+                <!-- UX: Camera switch button (Fitts's Law — 44px touch target) -->
+                <button id="btn-switch-camera" class="btn-switch-cam" aria-label="Đổi camera trước/sau">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/>
+                        <path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="m18 22-3-3 3-3"/>
+                        <path d="m6 2 3 3-3 3"/>
+                    </svg>
+                </button>
             </div>
         </section>
 
@@ -147,7 +161,7 @@
             <div class="confirmation-content">
                 <div class="confirmation-icon">✅</div>
                 <h2>Đã Lưu Ảnh Thành Công!</h2>
-                <p class="confirmation-desc">Bức ảnh này hoàn toàn hợp lệ để làm hồ sơ xin cấp đổi hộ chiếu. Hãy tiến hành nộp hồ sơ trực tuyến ngay bên dưới để tiết kiệm thời gian.</p>
+                <p class="confirmation-desc max-w-prose">Bức ảnh này hoàn toàn hợp lệ để làm hồ sơ xin cấp đổi hộ chiếu. Hãy tiến hành nộp hồ sơ trực tuyến ngay bên dưới để tiết kiệm thời gian.</p>
 
                 <div class="confirmation-preview">
                     <img id="confirmation-image" src="" alt="Confirmed Passport Photo" />
@@ -179,7 +193,7 @@
                 <h2>Đăng ký Dịch vụ</h2>
             </div>
             <div class="register-content">
-                <p class="register-subtitle">Hoàn tất biểu mẫu dưới đây, chuyên viên HoChieuGap sẽ liên hệ hỗ trợ bạn chưa tới 5 phút.</p>
+                <p class="register-subtitle max-w-prose">Hoàn tất biểu mẫu dưới đây, chuyên viên HoChieuGap sẽ liên hệ hỗ trợ bạn chưa tới 5 phút.</p>
 
                 <!-- Contact escape removed — tập trung form tự động hoá -->
 
@@ -356,7 +370,7 @@
             <div class="confirmation-content success-full">
                 <div class="confirmation-icon bounce">🎉</div>
                 <h2>Hồ Sơ Đã Được Tiếp Nhận!</h2>
-                <p class="confirmation-desc">Tuyệt vời. Chuyên viên hồ sơ của HoChieuGap sẽ gọi lại cho bạn trong <strong>tối đa 5 phút</strong> để tư vấn chi phí và hướng dẫn bước tiếp theo.</p>
+                <p class="confirmation-desc max-w-prose">Tuyệt vời. Chuyên viên hồ sơ của HoChieuGap sẽ gọi lại cho bạn trong <strong>tối đa 5 phút</strong> để tư vấn chi phí và hướng dẫn bước tiếp theo.</p>
 
                 <div class="success-ticket">
                     <div class="ticket-row"><span class="label">Mã tra cứu:</span> <strong id="ticket-id">HC-8888</strong>

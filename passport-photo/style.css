@@ -116,6 +116,12 @@ body {
     z-index: -1;
 }
 
+.max-w-prose {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* =========================================
    ONBOARDING VIEW
    ========================================= */
@@ -207,7 +213,44 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Mirror only for front camera — toggled via JS */
+#videoElement.mirror {
     transform: scaleX(-1);
+}
+
+/* --- Floating Back Button (top-left of camera) --- */
+.btn-back-floating {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 15;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: background var(--t-fast), transform var(--t-fast);
+}
+
+.btn-back-floating:hover {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.btn-back-floating:active {
+    transform: scale(0.92);
+}
+
+.btn-back-floating svg {
+    flex-shrink: 0;
 }
 
 /* --- Overlay System --- */
@@ -223,14 +266,14 @@ body {
     align-items: center;
 }
 
-/* --- Passport Guide Frame (4:6 ratio) --- */
+/* --- Passport Guide Frame (4:6 ratio, ICAO-calibrated) --- */
 .guide-frame {
     position: absolute;
     width: 82%;
     aspect-ratio: 4 / 6;
-    top: 48%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -54%);
+    transform: translate(-50%, -52%);
     border: 2.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 4px;
     transition: border-color var(--t-normal), box-shadow var(--t-normal);
@@ -259,12 +302,12 @@ body {
     border-radius: 4px;
 }
 
-/* --- Head Oval Silhouette --- */
+/* --- Head Oval Silhouette (ICAO: head = 70-80% of frame height) --- */
 .guide-oval {
     position: absolute;
-    width: 62%;
-    aspect-ratio: 3 / 4;
-    top: 3%;
+    width: 56%;
+    aspect-ratio: 3 / 4.2;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
     border: 2px dashed rgba(255, 255, 255, 0.4);
@@ -283,9 +326,9 @@ body {
     justify-content: flex-end;
 }
 
-.guide-line-top { top: 3%; }
-.guide-line-eye { top: 40%; }
-.guide-line-chin { top: 62%; }
+.guide-line-top { top: 4%; }
+.guide-line-eye { top: 44%; }
+.guide-line-chin { top: 70%; }
 
 .guide-label {
     font-size: 9px;
@@ -301,14 +344,14 @@ body {
     font-weight: 500;
 }
 
-/* --- Shoulder Hint --- */
+/* --- Shoulder Hint (ICAO: shoulders visible at bottom) --- */
 .guide-shoulders {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    height: 28%;
+    height: 24%;
     border-top: 2px dashed rgba(255, 255, 255, 0.12);
     border-top-left-radius: 50% 100%;
     border-top-right-radius: 50% 100%;
@@ -516,27 +559,36 @@ body {
     line-height: 1.3;
 }
 
-/* --- Back Button (Camera View) --- */
-.btn-back-cam {
-    width: 40px;
-    height: 40px;
+/* --- Back Button — now floating, see .btn-back-floating above --- */
+
+/* --- Camera Switch Button --- */
+.btn-switch-cam {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 1.5px solid var(--c-border);
     background: transparent;
     color: var(--c-text-muted);
-    font-size: 18px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all var(--t-fast);
-    font-family: var(--f-body);
 }
 
-.btn-back-cam:hover {
+.btn-switch-cam:hover {
     background: var(--c-bg);
     color: var(--c-text);
     border-color: var(--c-primary-light);
+}
+
+.btn-switch-cam:active {
+    transform: scale(0.92);
+    background: rgba(27, 79, 114, 0.1);
+}
+
+.btn-switch-cam svg {
+    flex-shrink: 0;
 }
 
 /* =========================================

@@ -17,6 +17,7 @@ const btnCapture = document.getElementById('btn-capture');
 const captureHint = document.getElementById('capture-hint');
 const previewImage = document.getElementById('preview-image');
 const confirmationImage = document.getElementById('confirmation-image');
+const btnSwitchCamera = document.getElementById('btn-switch-camera');
 
 // Views
 const onboardingView = document.getElementById('onboarding-view');
@@ -52,6 +53,7 @@ let consecutivePerfectFrames = 0;
 const PERFECT_FRAMES_THRESHOLD = 8;
 
 let cameraMode = 'self'; // 'self' or 'friend'
+let facingMode = 'user'; // 'user' (front) or 'environment' (back)
 let countdownTimer = null;
 let isCapturing = false;
 let finalImageDataUrl = null;
@@ -121,13 +123,17 @@ async function startCamera() {
     try {
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
-                facingMode: "user",
+                facingMode: facingMode,
                 width: { ideal: 720 },
                 height: { ideal: 1280 }
             },
             audio: false
         });
         videoElement.srcObject = stream;
+
+        // Mirror video only for front camera
+        videoElement.classList.toggle('mirror', facingMode === 'user');
+
         return new Promise((resolve) => {
             videoElement.onloadedmetadata = () => resolve();
         });
@@ -212,7 +218,9 @@ function processDetectionResult(result) {
     const faceWidthRatio = bbox.width / videoWidth;
     const isRightSize = faceWidthRatio > 0.22 && faceWidthRatio < 0.70;
 
-    const faceCenterX = videoWidth - (bbox.originX + bbox.width / 2);
+    // Front camera is mirrored: flip X. Back camera: use raw X.
+    const rawCenterX = bbox.originX + bbox.width / 2;
+    const faceCenterX = facingMode === 'user' ? (videoWidth - rawCenterX) : rawCenterX;
     const isCenteredX = Math.abs(faceCenterX - videoWidth / 2) < videoWidth * 0.15;
 
     const faceCenterY = bbox.originY + bbox.height / 2;
@@ -292,8 +300,11 @@ function takePhoto() {
     const vw = videoElement.videoWidth;
     const vh = videoElement.videoHeight;
 
-    ctx.translate(cw, 0);
-    ctx.scale(-1, 1);
+    // Only mirror for front camera to match the mirrored preview
+    if (facingMode === 'user') {
+        ctx.translate(cw, 0);
+        ctx.scale(-1, 1);
+    }
 
     const scale = ch / vh;
     const drawW = vw * scale;
@@ -309,6 +320,20 @@ function takePhoto() {
 }
 
 // ==========================================
+// CAMERA SWITCH (Front ↔ Back)
+// ==========================================
+async function switchCameraFacing() {
+    facingMode = facingMode === 'user' ? 'environment' : 'user';
+    stopCamera();
+    consecutivePerfectFrames = 0;
+    guideFrame.className = 'guide-frame state-default';
+    guideOval.className = 'guide-oval state-default';
+    statusText.textContent = 'Đang chuyển camera...';
+    await startCamera();
+    startFaceDetection();
+}
+
+// ==========================================
 // MODE TOGGLE
 // ==========================================
 function setMode(mode) {
@@ -319,8 +344,16 @@ function setMode(mode) {
     if (mode === 'friend') {
         btnCapture.disabled = false;
         captureHint.textContent = 'Nhờ người thân bấm nút chụp giúp bạn';
+        // Auto-switch to back camera for friend mode (more natural)
+        if (facingMode === 'user') {
+            switchCameraFacing();
+        }
     } else {
         captureHint.textContent = '✨ Trí tuệ AI sẽ tự động chụp khi góc mặt chuẩn xác nhất';
+        // Auto-switch to front camera for self mode
+        if (facingMode === 'environment') {
+            switchCameraFacing();
+        }
     }
 }
 
@@ -338,6 +371,11 @@ btnStart.addEventListener('click', async () => {
 // Mode toggles (within camera view)
 modeSelf.addEventListener('click', () => setMode('self'));
 modeFriend.addEventListener('click', () => setMode('friend'));
+
+// Camera switch
+if (btnSwitchCamera) {
+    btnSwitchCamera.addEventListener('click', () => switchCameraFacing());
+}
 
 // Back to onboarding from camera
 btnBackOnboarding.addEventListener('click', () => {
