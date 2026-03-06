@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chụp Ảnh Hộ Chiếu Online | HoChieuGap</title>
+    <meta name="description"
+        content="Tự chụp ảnh hộ chiếu chuẩn quy định 4x6cm ngay trên điện thoại. AI tự nhận diện khuôn mặt, miễn phí, không cần cài đặt.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app-container">
+        <!-- Bước 1: Hướng dẫn (Onboarding) -->
+        <section id="onboarding-view" class="view active">
+            <div class="onboarding-content">
+                <div class="header">
+                    <a href="../" class="back-link">← Về trang chủ HoChieuGap</a>
+                    <h2>Chụp ảnh Hộ chiếu chuẩn</h2>
+                    <p>Chỉ cần 3 bước để có bức ảnh đúng chuẩn quy định của nhà nước.</p>
+                </div>
+
+                <div class="guidelines">
+                    <div class="guide-item">
+                        <span class="icon">☀️</span>
+                        <div class="text">
+                            <strong>Ánh sáng đều</strong>
+                            <span>Chọn nơi có ánh sáng tốt, không bị bóng đổ trên khuôn mặt.</span>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="icon">👤</span>
+                        <div class="text">
+                            <strong>Nhìn thẳng, không cười</strong>
+                            <span>Mắt mở to, đầu thẳng, không nghiêng hay mỉm cười.</span>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="icon">🚫</span>
+                        <div class="text">
+                            <strong>Không kính, mũ</strong>
+                            <span>Tháo nón và kính râm/kính cận để rõ 2 tai và mắt.</span>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="icon">⬜</span>
+                        <div class="text">
+                            <strong>Nền phẳng sáng màu</strong>
+                            <span>Đứng trước một bức tường trắng hoặc xanh trơn.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button id="btn-start" class="btn primary">Bắt đầu chụp</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bước 2: Camera Capture -->
+        <section id="camera-view" class="view hidden">
+            <div class="camera-wrapper">
+                <video id="videoElement" autoplay playsinline muted></video>
+
+                <!-- Passport Guide Overlay -->
+                <div class="overlay-container">
+                    <!-- The passport frame guide (4:6 ratio) -->
+                    <div id="guide-frame" class="guide-frame state-default">
+                        <!-- Head oval silhouette -->
+                        <div id="guide-oval" class="guide-oval state-default"></div>
+
+                        <!-- Guide lines -->
+                        <div class="guide-line guide-line-top">
+                            <span class="guide-label">Đỉnh đầu</span>
+                        </div>
+                        <div class="guide-line guide-line-eye">
+                            <span class="guide-label">Mắt</span>
+                        </div>
+                        <div class="guide-line guide-line-chin">
+                            <span class="guide-label">Cằm</span>
+                        </div>
+
+                        <!-- Shoulder silhouette -->
+                        <div class="guide-shoulders"></div>
+                    </div>
+
+                    <!-- Countdown overlay -->
+                    <div id="countdown-overlay" class="countdown-overlay">
+                        <span id="countdown-number" class="countdown-number">3</span>
+                    </div>
+                </div>
+
+                <!-- Status indicator -->
+                <div class="status-indicator">
+                    <div class="loader" id="ai-loader"></div>
+                    <p id="status-text">Đang tải Camera...</p>
+                </div>
+            </div>
+
+            <div class="camera-controls">
+                <div class="mode-toggle">
+                    <button id="mode-self" class="mode-btn active" title="Tự chụp">
+                        <span class="mode-icon">🤳</span>
+                        <span class="mode-label">Tự chụp</span>
+                    </button>
+                    <button id="mode-friend" class="mode-btn" title="Nhờ người chụp">
+                        <span class="mode-icon">👥</span>
+                        <span class="mode-label">Nhờ chụp</span>
+                    </button>
+                </div>
+                <div class="capture-zone">
+                    <button id="btn-capture" class="btn-shutter" disabled>
+                        <div class="shutter-inner"></div>
+                    </button>
+                    <p id="capture-hint" class="auto-capture-hint">Hệ thống sẽ tự chụp khi hoàn hảo</p>
+                </div>
+                <button id="btn-back-onboarding" class="btn-back-cam">✕</button>
+            </div>
+        </section>
+
+        <!-- Bước 3: Xem trước (Preview) -->
+        <section id="preview-view" class="view hidden">
+            <div class="preview-content">
+                <h2>Ảnh của bạn đã sẵn sàng</h2>
+                <div class="image-wrapper">
+                    <img id="preview-image" src="" alt="Captured Passport Photo" />
+                </div>
+                <div class="action-footer">
+                    <button id="btn-retake" class="btn secondary outline">Chụp lại</button>
+                    <button id="btn-download" class="btn secondary outline">⬇ Tải ảnh</button>
+                    <button id="btn-accept" class="btn primary">✅ Xác nhận dùng ảnh này</button>
+                </div>
+                <div class="back-to-home">
+                    <a href="../" class="back-link">← Quay về trang dịch vụ Hộ Chiếu Gấp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bước 4: Xác nhận thành công (Confirmation) -->
+        <section id="confirmation-view" class="view hidden">
+            <div class="confirmation-content">
+                <div class="confirmation-icon">✅</div>
+                <h2>Ảnh hộ chiếu đã sẵn sàng!</h2>
+                <p class="confirmation-desc">Ảnh của bạn đạt chuẩn quy định. Bạn có thể tải về hoặc tiếp tục đăng ký
+                    dịch vụ hộ chiếu gấp.</p>
+
+                <div class="confirmation-preview">
+                    <img id="confirmation-image" src="" alt="Confirmed Passport Photo" />
+                </div>
+
+                <div class="confirmation-actions">
+                    <button class="btn primary btn-lg" id="btn-go-register">
+                        📋 Tiếp tục đăng ký dịch vụ
+                    </button>
+                    <button id="btn-download-final" class="btn secondary outline">
+                        ⬇ Tải ảnh về máy
+                    </button>
+                    <a href="../" class="btn ghost" id="btn-go-home">
+                        ← Quay về trang chủ HoChieuGap
+                    </a>
+                </div>
+
+                <div class="confirmation-tip">
+                    <span class="tip-icon">💡</span>
+                    <span>Mẹo: Kèm ảnh này vào form đăng ký để được xử lý nhanh hơn.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bước 5: Đăng ký dịch vụ (Register Form) -->
+        <section id="register-view" class="view hidden">
+            <div class="register-header">
+                <button id="btn-back-register" class="btn-back-icon">←</button>
+                <h2>Đăng ký Dịch vụ</h2>
+            </div>
+            <div class="register-content">
+                <p class="register-subtitle">Chỉ cần điền vài thông tin — chuyên viên sẽ liên hệ bạn trong 5 phút.</p>
+
+                <!-- UX: Contact Escape Hatch — cho khách lười/ngại điền form -->
+                <div class="contact-escape" id="contactEscape">
+                    <span class="contact-escape__label">Ngại điền form?</span>
+                    <div class="contact-escape__actions">
+                        <a href="https://zalo.me/0909123456" target="_blank"
+                            class="contact-escape__btn contact-escape__btn--zalo">
+                            💬 Nhắn Zalo
+                        </a>
+                        <a href="tel:0909123456" class="contact-escape__btn contact-escape__btn--phone">
+                            📞 Gọi ngay
+                        </a>
+                    </div>
+                </div>
+
+                <form id="passportRegisterForm" class="optim-form" data-form-type="passport"
+                    onsubmit="window.submitToGoogleSheet(event)">
+
+                    <!-- ═══ TẦNG 1: Required Fields (always visible) ═══ -->
+
+                    <!-- Nhóm 1: Thông tin cá nhân (Miller's Law: chunk related info) -->
+                    <fieldset class="form-section">
+                        <legend>1. Thông tin cá nhân</legend>
+                        <div class="form-group">
+                            <label for="regName">Họ và tên <span class="req">*</span></label>
+                            <!-- UX: Fitts's Law — Touch target ≥ 48px -->
+                            <input type="text" id="regName" name="name" required placeholder="NGUYỄN VĂN A"
+                                autocomplete="name" class="touch-target text-uppercase">
+                            <div class="error-msg">Vui lòng nhập họ tên</div>
+                        </div>
+
+                        <div class="form-row dual">
+                            <div class="form-group">
+                                <label for="regGender">Giới tính <span class="req">*</span></label>
+                                <select id="regGender" name="gender" required class="touch-target">
+                                    <option value="" disabled selected>— Chọn —</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                                <div class="error-msg">Chọn giới tính</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="regDob">Ngày sinh <span class="req">*</span></label>
+                                <input type="date" id="regDob" name="dob" required class="touch-target">
+                                <div class="error-msg">Chọn ngày sinh</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regId">Số CCCD <span class="req">*</span></label>
+                            <!-- UX: Poka-yoke — type tel kích hoạt numpad trên mobile -->
+                            <input type="tel" id="regId" name="idNumber" required placeholder="Nhập 12 số CCCD"
+                                pattern="[0-9]{9,12}" inputmode="numeric" class="touch-target">
+                            <div class="error-msg">Nhập số CCCD hợp lệ (9-12 số)</div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Nhóm 2: Liên hệ + Dịch vụ (merged — reduce cognitive steps) -->
+                    <fieldset class="form-section">
+                        <legend>2. Liên hệ & Dịch vụ</legend>
+                        <div class="form-group">
+                            <label for="regPhone">Số điện thoại <span class="req">*</span></label>
+                            <input type="tel" id="regPhone" name="phone" required placeholder="0909 123 456"
+                                autocomplete="tel" inputmode="tel" class="touch-target">
+                            <div class="error-msg">Nhập số điện thoại hợp lệ</div>
+                        </div>
+
+                        <div class="form-row dual">
+                            <div class="form-group">
+                                <label for="regService">Dịch vụ <span class="req">*</span></label>
+                                <select id="regService" name="service" required class="touch-target">
+                                    <option value="" disabled selected>— Chọn —</option>
+                                    <option value="Cấp mới lần đầu">Cấp mới lần đầu</option>
+                                    <option value="Làm lại HC hết hạn">Làm lại HC hết hạn</option>
+                                    <option value="Gia hạn / Đổi HC">Gia hạn / Đổi HC</option>
+                                    <option value="HC bị mất">HC bị mất</option>
+                                    <option value="Lấy trước hẹn">Lấy trước hẹn</option>
+                                    <option value="Trọn gói tại nhà">Trọn gói tại nhà</option>
+                                    <option value="Khác">Trường hợp khác</option>
+                                </select>
+                                <div class="error-msg">Chọn dịch vụ</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="regUrgency">Mức độ gấp <span class="req">*</span></label>
+                                <select id="regUrgency" name="urgency" required class="touch-target">
+                                    <option value="" disabled selected>— Chọn —</option>
+                                    <option value="Trong ngày">Trong ngày (Khẩn)</option>
+                                    <option value="1 ngày">1 ngày</option>
+                                    <option value="2 ngày">2 ngày</option>
+                                    <option value="3 ngày">3 ngày</option>
+                                </select>
+                                <div class="error-msg">Chọn mức độ gấp</div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- ═══ TẦNG 2: Expandable Section (ẩn mặc định) ═══ -->
+                    <!-- UX: Hick's Law — Progressive Disclosure, hide advanced fields -->
+                    <button type="button" class="expand-toggle" data-target="expandedFields" aria-expanded="false">
+                        <span class="expand-icon">➕</span>
+                        <span class="expand-label">Điền thêm thông tin (nhanh hơn khi tư vấn)</span>
+                    </button>
+
+                    <div class="expandable-section" id="expandedFields">
+                        <fieldset class="form-section">
+                            <legend>3. Thông tin bổ sung</legend>
+
+                            <div class="form-row dual">
+                                <div class="form-group">
+                                    <label for="regBirthPlace">Nơi sinh</label>
+                                    <input type="text" id="regBirthPlace" name="birthPlace" placeholder="Tỉnh/TP"
+                                        class="touch-target">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regEthnicity">Dân tộc</label>
+                                    <input type="text" id="regEthnicity" name="ethnicity" placeholder="Kinh"
+                                        value="Kinh" class="touch-target">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regReligion">Tôn giáo</label>
+                                <select id="regReligion" name="religion" class="touch-target">
+                                    <option value="Không">Không</option>
+                                    <option value="Phật giáo">Phật giáo</option>
+                                    <option value="Công giáo">Công giáo</option>
+                                    <option value="Tin lành">Tin lành</option>
+                                    <option value="Cao Đài">Cao Đài</option>
+                                    <option value="Hòa Hảo">Hòa Hảo</option>
+                                    <option value="Hồi giáo">Hồi giáo</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regPermanentAddress">Địa chỉ thường trú</label>
+                                <input type="text" id="regPermanentAddress" name="permanentAddress"
+                                    placeholder="Số nhà, đường, Phường/Xã, Quận/Huyện, Tỉnh/TP" class="touch-target">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regTempAddress">Địa chỉ tạm trú</label>
+                                <input type="text" id="regTempAddress" name="tempAddress"
+                                    placeholder="(Nếu khác thường trú)" class="touch-target">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regOccupation">Nghề nghiệp</label>
+                                <input type="text" id="regOccupation" name="occupation"
+                                    placeholder="Nghề nghiệp hiện tại" class="touch-target">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regOldPassport">Số HC cũ (nếu có)</label>
+                                <input type="text" id="regOldPassport" name="oldPassport" placeholder="Số hộ chiếu cũ"
+                                    class="touch-target">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regNote">Ghi chú thêm</label>
+                                <textarea id="regNote" name="note" rows="2"
+                                    placeholder="Tình huống đặc biệt, yêu cầu thêm..." class="touch-target"></textarea>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Hidden inputs -->
+                    <input type="hidden" id="regImageData" name="passportImage">
+                    <input type="hidden" name="hasPhoto" id="regHasPhoto" value="Không">
+                    <input type="hidden" name="url" value="">
+
+                    <!-- UX: Fitts's Law — Sticky Bottom Action Bar in Thumb Zone -->
+                    <div class="sticky-action-bar">
+                        <button type="submit" id="btn-submit-form" class="btn primary btn-lg btn-block touch-target">
+                            <span class="submit-text">Gửi hồ sơ ngay</span>
+                            <div class="loader loader-small hidden" id="submit-loader"></div>
+                        </button>
+                        <div class="secure-badge">🔒 Thông tin được bảo mật tuyệt đối</div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Bước 6: Hoàn tất (Success) -->
+        <section id="success-view" class="view hidden">
+            <div class="confirmation-content success-full">
+                <div class="confirmation-icon bounce">🎉</div>
+                <h2>Gửi yêu cầu thành công!</h2>
+                <p class="confirmation-desc">Hồ sơ và ảnh passport chuẩn của bạn đã được ghi nhận. Chuyên viên của
+                    HoChieuGap sẽ liên hệ trong <strong>5 phút</strong> để báo giá và xử lý hồ sơ.</p>
+
+                <div class="success-ticket">
+                    <div class="ticket-row"><span class="label">Mã số:</span> <strong id="ticket-id">HC-8888</strong>
+                    </div>
+                    <div class="ticket-row"><span class="label">Trạng thái:</span> <strong class="color-success">Đang
+                            chờ xử lý</strong></div>
+                </div>
+
+                <div class="confirmation-actions">
+                    <a href="https://zalo.me/0909123456" target="_blank"
+                        class="btn primary btn-lg btn-block touch-target margin-bottom-sm">
+                        💬 Nhắn Zalo ngay để ưu tiên
+                    </a>
+                    <a href="../" class="btn ghost btn-block touch-target">
+                        ← Trở về trang chủ
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Canvas (Hidden) for processing -->
+    <canvas id="canvasElement" class="hidden"></canvas>
+
+    <!-- Form handler (Google Sheet + Toast + Expandable) -->
+    <script src="../js/form-handler.js"></script>
+    <!-- App script — MediaPipe loaded dynamically inside -->
+    <script src="app.js"></script>
+</body>
+
+</html>

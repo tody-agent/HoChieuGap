@@ -1,0 +1,61 @@
+---
+import { CLUSTERS } from '../consts';
+
+interface Props {
+	cluster: string;
+	title: string;
+}
+
+const { cluster, title } = Astro.props;
+const clusterInfo = CLUSTERS[cluster as keyof typeof CLUSTERS];
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+	<ol class="breadcrumbs__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+		<li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a href="/" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+			<meta itemprop="position" content="1" />
+		</li>
+		<li class="breadcrumbs__separator" aria-hidden="true">›</li>
+		<li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a href="/blog/" itemprop="item"><span itemprop="name">Blog</span></a>
+			<meta itemprop="position" content="2" />
+		</li>
+		{clusterInfo && (
+			<>
+				<li class="breadcrumbs__separator" aria-hidden="true">›</li>
+				<li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+					<span itemprop="name">{clusterInfo.icon} {clusterInfo.name}</span>
+					<meta itemprop="position" content="3" />
+				</li>
+			</>
+		)}
+	</ol>
+</nav>
+
+<style>
+	.breadcrumbs {
+		margin-bottom: 1rem;
+	}
+	.breadcrumbs__list {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		font-size: 0.85rem;
+		color: #6b7280;
+	}
+	.breadcrumbs__item a {
+		color: #2563eb;
+		text-decoration: none;
+	}
+	.breadcrumbs__item a:hover {
+		text-decoration: underline;
+	}
+	.breadcrumbs__separator {
+		color: #d1d5db;
+	}
+</style>

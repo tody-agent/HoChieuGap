@@ -1,0 +1,202 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import ArticleCTA from '../components/ArticleCTA.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BRAND, CLUSTERS } from '../consts';
+
+type Props = CollectionEntry<'blog'>['data'] & { slug?: string };
+
+const { title, description, pubDate, updatedDate, heroImage, cluster, keywords = [], isPillar, readingTime } = Astro.props;
+const clusterInfo = CLUSTERS[cluster as keyof typeof CLUSTERS];
+
+// Article structured data
+const articleSchema = JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	datePublished: pubDate.toISOString(),
+	dateModified: updatedDate ? updatedDate.toISOString() : pubDate.toISOString(),
+	author: {
+		'@type': 'Organization',
+		name: BRAND.name,
+		url: BRAND.siteUrl,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: BRAND.name,
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': Astro.url.href,
+	},
+	keywords: keywords.join(', '),
+});
+---
+
+<html lang="vi">
+	<head>
+		<BaseHead title={`${title} | ${BRAND.name}`} description={description} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<script type="application/ld+json" set:html={articleSchema} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+				font-family: 'Be Vietnam Pro', sans-serif;
+				line-height: 1.8;
+			}
+			.article-header {
+				margin-bottom: 1.5em;
+				padding: 1em 0;
+			}
+			.article-header h1 {
+				margin: 0 0 0.5em 0;
+				font-size: 2rem;
+				line-height: 1.3;
+				color: #1a1a2e;
+			}
+			.article-meta {
+				display: flex;
+				gap: 1rem;
+				align-items: center;
+				flex-wrap: wrap;
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+			}
+			.cluster-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.25rem;
+				padding: 0.2rem 0.6rem;
+				background: #f0f4ff;
+				border-radius: 999px;
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: #2563eb;
+			}
+			.reading-time {
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			.prose h2 {
+				margin-top: 2em;
+				margin-bottom: 0.5em;
+				color: #1a1a2e;
+				border-bottom: 2px solid #e5e7eb;
+				padding-bottom: 0.3em;
+			}
+			.prose h3 {
+				margin-top: 1.5em;
+				color: #374151;
+			}
+			.prose ul, .prose ol {
+				padding-left: 1.5em;
+			}
+			.prose li {
+				margin-bottom: 0.3em;
+			}
+			.prose strong {
+				color: #1a1a2e;
+			}
+			.prose blockquote {
+				border-left: 4px solid #2563eb;
+				padding: 0.5em 1em;
+				margin: 1em 0;
+				background: #f0f4ff;
+				border-radius: 0 8px 8px 0;
+			}
+			.prose table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 1em 0;
+			}
+			.prose th, .prose td {
+				border: 1px solid #e5e7eb;
+				padding: 0.5rem 0.75rem;
+				text-align: left;
+			}
+			.prose th {
+				background: #f9fafb;
+				font-weight: 600;
+			}
+			.pillar-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.25rem;
+				padding: 0.2rem 0.8rem;
+				background: linear-gradient(135deg, #f59e0b, #d97706);
+				border-radius: 999px;
+				font-size: 0.75rem;
+				font-weight: 700;
+				color: white;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt={title} />}
+				</div>
+				<div class="prose">
+					<Breadcrumbs cluster={cluster} title={title} />
+					<div class="article-header">
+						<div class="article-meta">
+							{clusterInfo && (
+								<span class="cluster-badge">{clusterInfo.icon} {clusterInfo.name}</span>
+							)}
+							{isPillar && <span class="pillar-badge">⭐ Bài trụ cột</span>}
+							<FormattedDate date={pubDate} />
+							{readingTime && <span class="reading-time">⏱ {readingTime} phút đọc</span>}
+							{updatedDate && (
+								<span class="last-updated-on">
+									Cập nhật: <FormattedDate date={updatedDate} />
+								</span>
+							)}
+						</div>
+						<h1>{title}</h1>
+						<hr />
+					</div>
+					<slot />
+					<ArticleCTA />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

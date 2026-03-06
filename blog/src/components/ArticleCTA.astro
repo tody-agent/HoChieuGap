@@ -1,0 +1,86 @@
+---
+import { BRAND } from '../consts';
+---
+
+<div class="article-cta">
+	<div class="article-cta__inner">
+		<div class="article-cta__icon">🛂</div>
+		<h3 class="article-cta__title">Cần hỗ trợ làm Hộ Chiếu Gấp?</h3>
+		<p class="article-cta__desc">
+			Liên hệ ngay — Tư vấn miễn phí, cam kết đúng hẹn 100%, hoàn tiền nếu trễ.
+		</p>
+		<div class="article-cta__actions">
+			<a href={`tel:${BRAND.hotline.replace(/\s/g, '')}`} class="cta-btn cta-btn--phone">
+				📞 Gọi {BRAND.hotline}
+			</a>
+			<a href={BRAND.zaloLink} target="_blank" rel="noopener" class="cta-btn cta-btn--zalo">
+				💬 Nhắn Zalo
+			</a>
+			<a href={`${BRAND.landingPage}#contact`} class="cta-btn cta-btn--form">
+				📝 Gửi yêu cầu
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.article-cta {
+		margin: 2.5rem 0 1rem;
+		padding: 0;
+	}
+	.article-cta__inner {
+		background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+		border-radius: 16px;
+		padding: 2rem;
+		text-align: center;
+		color: white;
+	}
+	.article-cta__icon {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
+	.article-cta__title {
+		font-size: 1.4rem;
+		margin: 0 0 0.5rem;
+		color: white;
+	}
+	.article-cta__desc {
+		margin: 0 0 1.5rem;
+		opacity: 0.85;
+		font-size: 0.95rem;
+	}
+	.article-cta__actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.cta-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.7rem 1.2rem;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: 0.9rem;
+		text-decoration: none;
+		transition: transform 0.2s, box-shadow 0.2s;
+	}
+	.cta-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.cta-btn--phone {
+		background: #e74c3c;
+		color: white;
+	}
+	.cta-btn--zalo {
+		background: #0068ff;
+		color: white;
+	}
+	.cta-btn--form {
+		background: rgba(255, 255, 255, 0.15);
+		color: white;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+	}
+</style>
