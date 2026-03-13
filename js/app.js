@@ -307,10 +307,12 @@ function initProcess() {
   container.innerHTML = PROCESS_STEPS.map(step => `
     <div class="process-step animate-on-scroll">
       <div class="process-step__icon">${step.icon}</div>
-      <div class="process-step__num">Bước ${step.step}</div>
-      <h3 class="process-step__title">${step.title}</h3>
-      <p class="process-step__desc">${step.desc}</p>
-      <span class="process-step__duration">${step.duration}</span>
+      <div class="process-step__content">
+        <div class="process-step__num">Bước ${step.step}</div>
+        <h3 class="process-step__title">${step.title}</h3>
+        <p class="process-step__desc">${step.desc}</p>
+        <span class="process-step__duration">${step.duration}</span>
+      </div>
     </div>
   `).join('');
 }
