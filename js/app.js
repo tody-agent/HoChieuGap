@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initAnimations();
   initCountUp();
+  initStickyMobileCTA();
 });
 
 // ═══ NAVBAR ═══
@@ -37,8 +38,19 @@ function initNavbar() {
   links.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       links.classList.remove('navbar__links--open');
+      toggle.classList.remove('active');
     });
   });
+
+  // UX: Close mobile nav on scroll for cleaner experience
+  let lastScrollY = 0;
+  window.addEventListener('scroll', () => {
+    if (Math.abs(window.scrollY - lastScrollY) > 60) {
+      links.classList.remove('navbar__links--open');
+      toggle.classList.remove('active');
+      lastScrollY = window.scrollY;
+    }
+  }, { passive: true });
 }
 
 // ═══ WIZARD ENGINE ═══
@@ -280,9 +292,9 @@ function initPricing() {
     return `
       <tr>
         <td>${svc.icon} ${svc.title}</td>
-        <td class="price-cell">${renderPrice(prices['3-day'])}</td>
-        <td class="price-cell">${renderPrice(prices['2-day'])}</td>
-        <td class="price-cell price-cell--hot">${renderPrice(prices['1-day'])}</td>
+        <td class="price-cell" data-label="72h">${renderPrice(prices['3-day'])}</td>
+        <td class="price-cell" data-label="48h">${renderPrice(prices['2-day'])}</td>
+        <td class="price-cell price-cell--hot" data-label="24h ⚡">${renderPrice(prices['1-day'])}</td>
       </tr>
     `;
   }).join('');
@@ -479,4 +491,38 @@ function animateCount(el, target) {
   }
 
   requestAnimationFrame(update);
+}
+
+// ═══ STICKY MOBILE CTA ═══
+// UX: Fitts's Law — Keep primary actions in thumb zone
+// UX: Auto-hide when contact section is visible to avoid redundancy
+function initStickyMobileCTA() {
+  const bar = document.getElementById('mobileStickyBar');
+  if (!bar) return;
+
+  const contactSection = document.getElementById('contact');
+  if (!contactSection) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      bar.classList.toggle('mobile-sticky-cta--hidden', entry.isIntersecting);
+    });
+  }, {
+    threshold: 0.15
+  });
+
+  observer.observe(contactSection);
+
+  // Also hide when footer is visible
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    const footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          bar.classList.add('mobile-sticky-cta--hidden');
+        }
+      });
+    }, { threshold: 0.3 });
+    footerObserver.observe(footer);
+  }
 }
